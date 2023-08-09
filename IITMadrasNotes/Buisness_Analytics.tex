@@ -1,0 +1,246 @@
+\documentclass[a4paper]{article}
+\input{head}
+
+\begin{document}
+
+\fancyhead[c]{}
+\hrule \medskip
+\begin{minipage}{0.295\textwidth}
+\raggedright
+Rishabh Indoria
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\centering
+\LARGE
+Buisness Analytics
+\end{minipage}\
+\begin{minipage}{0.295\textwidth}
+\raggedleft
+\today \hfill \\
+\end{minipage}
+\medskip \hrule
+\bigskip
+
+\section{Week 1}
+	\begin{enumerate}
+		\item How do you see data ?
+		\begin{itemize}
+			\item Good Decisions are based on an accurate understanding of Good data.
+			\item Present Data in a Precise, Concise and Understandable Way.
+			\item Two Types of data
+			\begin{itemize}
+				\item Categorical
+				\item Numerical: Discrete and Continuous
+			\end{itemize}
+		\item Core Principle on which visualization of data is done: Nature of data dictates which visualization to use.
+		\end{itemize}
+		\item Benefits of visual representation of data.
+		\begin{itemize}
+			\item Communicate complex information concisely and precisely.
+			\item Create a "picture" for reasoning about and analysing quantitative and conceptual information.
+			\item Provides "Information Rich View" at a glance.
+			\item Directs attention towards content rather than methodology.
+			\item Describe, Explore and Summarize a set of numbers.
+			\item Convey messages about significance of data.
+		\end{itemize}
+		\item 4 Principles of effective visualization.
+		\begin{itemize}
+			\item Know Purpose
+			\item Ensure Integrity
+			\item Maximize data ink and Minimize non data ink
+			\item Show your data, annotate
+		\end{itemize}
+		\item Executing your information display is a 3 step process.
+		\begin{itemize}
+			\item Defining the message
+			\begin{itemize}
+				\item What am I trying to communicate ?
+				\item Should I use text, table, graph or a combination ?
+				\item The message/statistic you want to emphasize
+			\end{itemize}
+			\item Choosing Form
+			\begin{itemize}
+				\item What is the message ?
+				\item What design principles lead to quick cognitive processing \& effective communication ?
+				\item Whether to display the data as a table or a chart
+			\end{itemize}
+			\item Creating Designs
+			\begin{itemize}
+				\item How do I make the message clear at a glance ?
+				\item Avoid 3D effects, Avoid legends(Use Labels), Avoid contrasting borders around objects, Use annotations to highlight key data changes or to focus on specific data points.
+			\end{itemize}
+		\end{itemize}
+		\item Dashboard
+		\begin{itemize}
+		\item A visual display of the most important information needed to achieve one or more objective that has been consolidated on a single screen so it can be monitored \& understood at a glance.
+			\item Scan the big picture, Zoom in on important specifics, Link to supporting details.
+		\end{itemize}
+	\end{enumerate}
+\section{Week 2}
+	\begin{enumerate}
+		\item Probability Distributions
+		\begin{itemize}
+			\item Trace-Driven Simulation: Data values themselves used directly in simulations.
+			\item Fit: Use a theoretical distribution for the data.
+			\item Data values could be used to define empirical distribution.  
+		\end{itemize}
+		\item Empirical Distributions
+		\begin{itemize}
+			\item Using data we build our own distributions.
+			\item Define density/Distribution function
+			\item Estimate Parameters
+			\item Ungrouped data: $X_1 \leq X_2 \leq X_3 \leq ... \leq X_n$
+			\[
+			E(x) = 
+			\begin{cases}
+				0&\text{for $x < X_1$}\\
+				\frac{i - 1}{n - 1} + \frac{x - X_i}{(n - 1)(X_{i+1} - X_i)}&\text{for $X_i \leq x < X_{i+1}$, $i = 1,2,...,n-1$}\\
+				1&\text{for $X_n \leq x$}
+			\end{cases}				
+			\]
+			\item Grouped Data : $n X_j^{'}$s are grouped in $k$ adjacent intervals so that the $jth$ interval contains $nj$ observations, $n_1 + n_2 + ... + n_k = n$
+			
+			Intervals: $(a_0, a_1), (a_1, a_2), ..., (a_{k-1}, a_k)$, 
+			
+			$G(a_0) = 0, G(a_j) = \frac{n_1 + n_2 + n_3 + ... + n_j}{n}$
+			\[
+			G(x) = 
+			\begin{cases}
+			0&\text{for $x < a_0$}\\
+			G(a_{j-1}) + \frac{x-a_{j-1}}{a_j-a_{j-1}}[G(a_j) - G(a_{j-1}]&\text{for $a_{j-1} \leq x < a_j$, $j = 1,2,3,...,k$}\\
+			1&\text{for $a_k \leq x$}
+			\end{cases}
+			\] 
+		\end{itemize}
+		\item Clues from summary statistics
+		\begin{itemize}
+			\item Symmetric distributions: mean $\approx$ median, eg: Normal Distribution
+			\item Coefficient of Variation(cv): Ratio of Standard deviation \& mean, $\frac{\sigma}{\mu}$
+			
+			Continuous Distributions: cv $\approx$ 1, eg: Exponential Distribution
+			
+			Right/Positive skewed histogram: cv $>$ 1, eg: log normal distribution
+			\item Lexi$^{'}$s ratio: Same as cv for Discrete Distributions.
+			\item Skewness(v): Measure of symmetry of a distribution
+			
+			v $=$ 0, Normal Distribution
+			
+			v $>$ 0, right skewed(exponential distribution)
+			
+			v $<$ 0, left skewed 
+		\end{itemize}
+		\item Parameter Estimation
+		\begin{itemize}
+			\item Once distribution is guessed, next step is estimating parameters of the distribution.
+			\item Most common method used is MLE.
+		\end{itemize}
+		\item Goodness of Fit
+		\begin{itemize}
+			\item Can be checked by
+			\begin{itemize}
+				\item Frequency Comparison(a bit technical)
+				\item Probability Comparison(Visual tool)
+				\item Goodness of Fit test(statistical test for goodness) 
+			\end{itemize}
+			\item Quantile-Quantile Plot(Q-Q Plot)
+			\begin{itemize}
+				\item Graph of q$_{i}$ quantile of model vs q$_{i}$ quantile of sample distribution.
+				\item $x_{q_{i}}^{M} = \hat{F}^{-1}(q_{i})$
+				\item $x_{q_{i}}^{S} = \tilde{F}^{-1}(q_{i}) = x_{i}, i = 1,2,3,...$
+				\item If our distribution is correct, then we will get a line with slope 1 and intercept 0 (Linear) \& $x_{q_{i}}^{M} \approx x_{q_{i}}^{S}$
+				\item Amplifies difference between the tails of model distribution.
+			\end{itemize}
+			\item Probability-Probability Plot(P-P Plot)
+			\begin{itemize}
+				\item Graph of model Probability $\hat{F}(X_{i})$ vs Sample Probability $\tilde{F}_{n}(X_{i})$
+				\item Valid for both Continuous and Discrete data sets.
+				\item I chosen distribution is correct then $\hat{F}(X_{i})\approx \tilde{F}_{n}(X_{i})$, the plot will be linear with slope 1 and intercept 0.
+				\item Amplifies differences between middle portion of the model distribution.
+			\end{itemize}
+			\item Goodness of fit tests
+			\begin{itemize}
+				\item Statistical Hypothesis test that is used to assess formally whether observations are independent samples from a particular distribution.
+				\item $H_{0}$: Observation are independent.
+				\item Chi-Square Test
+				\begin{itemize}
+					\item Require frequency tables: Bins, Object Frequency, Expected frequency.
+					\item Calculate test statistic $\chi^{2} = \frac{\Sigma(O_{i} - E_{i})^{2}}{E_{i}}$
+					\item Compute p-value, if it is less than significant level($\alpha$) then reject $H_{0}$
+					\item Compute tabulated $\chi^{2}_{k - p - 1, \alpha}$, if $\chi^{2}_{tabulated} < \chi^{2}_{computed}$ then reject $H_{0}$.
+					
+					p = number of parameters
+					
+					k = number of bins
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+	\end{enumerate}
+\section{Week 3}
+	\begin{enumerate}
+		\item Ordinal Data: Categorical data which can be ordered.
+		\item Conditional Probability: $\frac{\text{Joint Probility}}{\text{Marginal Probability}}$
+		\item Conditional Probability can be compared using Joint Probability table(Contingency Table)
+		\item Baye$^{'}$s Rule
+		\begin{itemize}
+			\item Posterior Probability can be found using initial probability and additional information
+			\item $P(A\cap B) = P(A|B)P(B)$
+			\item $P(A|B) = \frac{P(A)P(B|A)}{P(B)}$
+		\end{itemize}
+		\item Chi-Squared Test of Independence
+		\item Null Hypothesis $H_0$: Categorical Variables are independent.
+		\item Alternate Hypothesis $H_1$: Categorical variables are not independent.
+		\item Example Table:
+		
+		\begin{tabular}{|c||c|c|c||c|}
+			\hline
+			City$\backslash$Preferred Brand& Brand A& Brand B& Brand C& Total\\
+			\hline \hline
+			Mumbai& 279& 73& 225& 577\\
+			\hline
+			Chennai& 165& 47& 191& 403\\
+			\hline \hline
+			Total& 444& 120& 416& 980\\
+			\hline
+		\end{tabular}
+		\begin{itemize}
+			\item Independent(Explanatory) Variable is City
+			\item Dependent(Response) Variable is Brand Preference
+			\item $f_{o}$: Observed Frequency(from Samples)
+			\item $f_{e}$: Expected Frequencies, if variables were independent = $\frac{\text{Row Total $\cdot$ Column Total}}{\text{Overall Total}}$
+			\item degree of freedom = (number of rows - 1) $\cdot$ (number of columns - 1)
+		\end{itemize}
+	\end{enumerate}
+\section{Week 4}
+	\begin{enumerate}
+		\item Demand Response Curve
+		\begin{itemize}
+			\item Properties: Non-Negative, Continuous \& Differentiable and Generally Downwards Slopping
+			\item Price Sensitivity = $\frac{D(P_{2}) - D(P_{1})}{P_{2} - P_{1}}$
+			\item Demand Elasticity = $-\frac{\frac{D(P_{2}) - D(P_{1})}{D(P_{1})}}{\frac{P_{2} - P_{1}}{P_{1}}}$
+		\end{itemize}
+		\item Linear Response Curve
+		\begin{itemize}
+			\item $D(P) = D_{o} - mP$
+			\item Satiating Price $P_{s} = \frac{D_{o}}{m}$; $D(P_{s}) = 0$
+			\item Demand at $P = 0$ is $D_{o}$
+			\item Elasticity $\varepsilon = \frac{mP}{D_{o} - mP}$ 
+		\end{itemize}
+		\item Constant Elasticity Curve
+		\begin{itemize}
+			\item $D(P) = cP^{-\varepsilon}$
+			\item $c$ = Demand when $P = 1$
+			\item Revenue R = $P\cdot D(P)$
+		\end{itemize}
+		\item Elasticity
+		\begin{itemize}
+			\item $\varepsilon < 1$: Inelastic Product Demand, Increase Revenue $\implies$ Increase Price
+			\item $\varepsilon > 1$: Elastic Product Demand, Increase Revenue $\implies$ Decrease Price
+		\end{itemize}
+		\item Simple Linear Regression can be used to fir Linear curves
+		\begin{itemize}
+			\item Loss/Error = $\frac{\Sigma (y - \hat{y})^{2}}{N}$
+			\item error term $e = (y - \hat{y})^{2} \sim N(0,\sigma_{e}^{2})$
+			\item error terms are independent, have equal variance and are nirmally distributed. 
+		\end{itemize}
+	\end{enumerate}
+\end{document}

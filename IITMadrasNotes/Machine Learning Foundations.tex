@@ -1,0 +1,282 @@
+\documentclass[a4paper]{article}
+\input{head}
+
+\begin{document}
+
+\fancyhead[c]{}
+\hrule \medskip
+\begin{minipage}{0.295\textwidth}
+\raggedright
+Rishabh Indoria
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\centering
+\LARGE
+Machine Learning Foundations
+\end{minipage}\
+\begin{minipage}{0.295\textwidth}
+\raggedleft
+\today \hfill \\
+\end{minipage}
+\medskip \hrule
+\bigskip
+
+\section{Week 1}
+	\begin{enumerate}
+		\item Supervised Learning: Regression
+		\begin{itemize}
+			\item Find model $f$ such that $f(x^{i})\approx g^{i}$
+			\item Training Data: ${(x^{1},y^{1}),(x^{2},y^{2}),...,(x^{n},y^{n})}$
+			\item Loss = $\frac{\Sigma (f(x^{i}) - y^{i})^{2}}{n}$
+			\item $f(x) = w^{T}\cdot x + b$
+		\end{itemize}
+		\item Supervised Learning: Classification
+		\begin{itemize}
+			\item $y^{i}\epsilon {-1, +1}$
+			\item Loss = $\frac{\Sigma 1(f(x^{i})\neq y^{i})}{n}$
+			\item $f(x) = sign(w^{T}\cdot x + b)$
+		\end{itemize}
+		\item Validation Data: Choosing the right collection of models is done using validation data.
+		\item Unsupervised Learning: Dimensionality Reduction
+		\begin{itemize}
+			\item Data = ${x^{1},x^{2},...,x^{n}}$
+			\item Compress, Explain and Group Data.
+			\item Encoder $f:R^{d}\rightarrow R^{d'}$ Decoder: $f:R^{d'}\rightarrow R^{d}$
+			\item Goal: $g(f(x^{i})) \approx x^{i}$
+			\item Loss: $\frac{\begin{Vmatrix} g(f(x^{i}))-x^{i} \end{Vmatrix}^{2}}{n}$
+		\end{itemize}
+		\item Unsupervised Learning: Density Estimation
+		\begin{itemize}
+			\item Probabilistic Model
+			\item $P:R^{d}\rightarrow R_{+}$ that sums to 1
+			\item $P(x)$ is large is $x\epsilon$ Data and low otherwise
+			\item Loss: $\frac{\Sigma -log(P(x^{i}))}{n}$
+		\end{itemize}
+	\end{enumerate}
+\section{Week 2}
+	\begin{enumerate}
+		\item Continuity \& Differentiability
+		\begin{itemize}
+			\item $f:R\rightarrow R$ is continuous if $\lim_{x\to x^{*}}f(x) = f(x^{*})$
+			\item Differentiable if $\lim_{x\to x^{*}}\frac{f(x) - f(x^{*})}{x - x^{*}} = f(x')$ exists.
+			\item if $f$ is NOT continuous $\implies$ NOT differentiable
+		\end{itemize}
+		\item Linear Approximation
+		\begin{itemize}
+			\item If $f$ is differentiable
+			\item $f(x)\approx f(x^{*}) + f'(x^{*})(x - x^{*})$
+			\item $f(x)\approx L_{x^{*}}[f](x)$
+		\end{itemize}
+		\item Higher order Approximation
+		\begin{itemize}
+			\item $f(x)\approx f(x^{*}) + f'(x^{*})(x - x^{*}) + \frac{f''(x^{*})}{2!}(x - x^{*})^{2} + ...$
+		\end{itemize}
+		\item Lines
+		\begin{itemize}
+			\item Line through point $u$ along vector $v = {x, x = u + \alpha v}$, where $u,v,x\epsilon R^{d}$ and $\alpha \epsilon R$
+			\item Line through points $u$ and $u'$ = ${x, x = u + \alpha (u - u')}$
+		\end{itemize}
+		\item Hyper Planes
+		\begin{itemize}
+			\item Hyper Plane normal to vector $w$ with value $b$ = ${x, w^{T}\cdot x = b}$, where $x, w\epsilon R^{d}$ and $b\epsilon R$
+		\end{itemize}
+		\item Partial Derivatives \& Gradients
+		\begin{itemize}
+			\item $f:R^{d}\rightarrow R$
+			\item $\frac{\delta f}{\delta x}(v) = [\frac{\delta f}{\delta x_{1}}(v), \frac{\delta f}{\delta x_{2}}(v),...,\frac{\delta f}{\delta x_{d}}(v)]$
+			\item $\Delta f(v) = [\frac{\delta f}{\delta x}]^{T}$
+		\end{itemize}
+		\item Multivariate Linear Approximation
+		\begin{itemize}
+			\item $f(x)\approx f(v) + \Delta f(v)^{T}(x - v) = L_{v}[f](x)$
+		\end{itemize}
+		\item Directional Derivative
+		\begin{itemize}
+			\item $D_u[f](v) = \frac{\delta f}{\delta x}(v)^{T}\cdot u$, at point $v$ along $u$
+		\end{itemize}
+		\item Direction of steepest ascent
+		\begin{itemize}
+			\item Find $u\epsilon R^{d}$, $\begin{Vmatrix} u \end{Vmatrix} = 1$ \& maximize $D_{u}[f](v)$
+			\item $u = \alpha \cdot \Delta f(v)$
+		\end{itemize}
+	\end{enumerate}
+\section{Week 3}
+	\begin{enumerate}
+		\item Four Fundamental Sub Spaces
+		\begin{itemize}
+			\item Column Space $C(A)$
+			\begin{itemize}
+				\item span($u_{1}, u_{2},...,u_{n}$) = Linear Combination of vectors
+				\item If $Ax = b$ has a solution, then $b\epsilon C(A)$
+				\item Rank = number of pivot columns = dim($C(A)$)
+			\end{itemize}
+			\item Null Space $N(A)$
+			\begin{itemize}
+				\item ${x| Ax = 0}$
+				\item If $A$ is invertible then $N(A)$ only contains zero, and $Ax = b$ has a unique solution.
+				\item Nullity = number of free variables = dim($N(A)$)
+				\item If $A$ has $n$ columns, then rank + nullity = $n$
+				\item Can use Gaussian Elimination to solve for $N(A)$
+			\end{itemize}
+			\item Row Space $R(A)$
+			\begin{itemize}
+				\item Column Space of $A^{T}$
+				\item Column Rank $dim(C(A))$ = Row Rank $dim(R(A))$
+				\item $R(A) \perp N(A)$
+			\end{itemize}
+			\item Left Null Space $N(A^{T})$
+			\begin{itemize}
+				\item $C(A) \perp N(A^{T})$
+			\end{itemize}
+		\end{itemize}
+		\item Orthogonal and Vector Sub Spaces
+		\begin{itemize}
+			\item Orthogonal Vectors, $x \perp y$ if $x\cdot y = x^{T}y = 0$
+			\item Orthonormal Vectors, $u \perp v$ and $\begin{Vmatrix} u\end{Vmatrix} =\begin{Vmatrix} v\end{Vmatrix} = 1$
+		\end{itemize}
+		\item Projections
+		\begin{itemize}
+			\item Projection onto a line
+			\begin{itemize}
+				\item $p = \hat{x}a$
+				\item $e = b - p = b - \hat{x}a$
+				\item $e \perp a \implies \hat{x} = \frac{a^{T}b}{a^{T}a}$
+				\item Projection matrix $P = \frac{aa^{T}}{a^{T}a}$
+				\item $p = Pb$
+				\item $P$ is symmetric, $P^{2} = P$, Rank $P = 1$
+			\end{itemize}
+			\item Projection onto a subspace
+			\begin{itemize}
+				\item Projection of $b$ onto $C(A)$, $Ax = b$
+				\item $p = A\hat{x}, e = b - A\hat{x}$
+				\item $e \perp$ every vector in $C(A)$ and $N(A^{T}) \perp C(A) \implies e\epsilon N(A^{T})$
+				\item Projection Matrix $P = A(A^{T}A)^{-1}A^{T}$, $p = Pb$
+			\end{itemize}
+		\end{itemize}
+		\item Least Squares
+		\begin{itemize}
+			\item Suppose we have a vector $b$ which leads to an inconsistent system $Ax\neq b$
+			\item Next best thing we do is minimize average error, $E^{2} = (Ax-b)^{2}$
+			\item $\frac{\delta E^{2}}{\delta x} = 0 \implies (A^{T}A)x = A^{T}b$ 
+		\end{itemize}
+	\end{enumerate}
+\section{Week 4}
+	\begin{enumerate}
+		\item Linear and Polynomial Regression
+		\begin{itemize}
+			\item Minimize Loss $L(\theta) = \frac{\Sigma (x_{i}^{T} - y_{i})^{2}}{2}$
+			\item Use least squares method $(A^{T}A)\theta = A^{T}Y$
+			\item Polynomial Regression
+			\begin{itemize}
+				\item Transformed Features: $\hat{y}(x) = \theta_{0}+\theta_{1}x + \theta_{2}x^{2} + \theta_{m}x^{m} = \Sigma \theta_{j}\phi_{j}(x), \phi_{j}(x) = x^{j}$
+				\item $\hat{y}(x) = \theta^{T}\phi(x)$, $(A^{T}A)\theta = A^{T}Y$
+				\item Then Proceed as Linear Regression
+			\end{itemize}
+			\item Regularized Loss
+			\begin{itemize}
+				\item $\bar{L}(\theta) = \frac{(x^{T}_{i}\theta - y_{i})^{2}}{2} + \lambda \begin{Vmatrix} \theta \end{Vmatrix}^{2}$, Regularized Term = $\lambda \begin{Vmatrix} \theta \end{Vmatrix}^{2}$
+				\item $(A^{T}A + \lambda I)\theta_{reg} = A^{T}Y$
+				\item Overfitting $\rightarrow$ Too small $\lambda$
+				\item Underfitting $\rightarrow$ Too large $\lambda$
+			\end{itemize}
+		\end{itemize}
+		\item Eigenvalues and Eigenvectors
+		\begin{itemize}
+			\item Eigenvalue equation $Ax = \lambda x$
+			\item $\frac{\delta u}{\delta t} = Au$ can be solved with solutions of the form $u(t) = e^{\lambda t}x$ if $Ax = \lambda x$
+			\item $(A - \lambda I)x = 0$
+			
+			Characteristic polynomial $|A - \lambda I| = 0$
+			
+			Trace of $A = \Sigma \lambda$ = Sum of diagonal elements of $A$
+			
+			$|A|$ = Determinant of $A$ = $\Pi \lambda$ 
+		\end{itemize}
+		\item Diagonalization of a Matrix
+		\begin{itemize}
+			\item A matrix $A$ is diagonalizable if there exists an invertible matrix $S$ such that $S^{-1}AS = \lambda$, $\lambda = $ Diagonal Matrix
+			\item $S = \begin{bmatrix}x_{1}&x_{2}&...&x_{n}\end{bmatrix}$, $x_{1}, x_{2}, ..., x_{n} =$ eigenvectors
+			\item $S^{-1}A^{k}S = \lambda^{k}$, $k \geq 1$
+			\item $Q\lambda Q^{T} = A$
+			
+			$Q = \begin{bmatrix}q_{1}&q_{2}&...&q_{n}\end{bmatrix}$
+			
+			$q_{1} = \frac{x_{1}}{\begin{Vmatrix}x_{1}\end{Vmatrix}}, q_{2} = \frac{x_{2}}{\begin{Vmatrix}x_{2}\end{Vmatrix}}, ..., q_{n} = \frac{x_{n}}{\begin{Vmatrix}x_{n}\end{Vmatrix}}$
+		\end{itemize}
+		\item Fibonacci Sequence $F_{k}\approx \frac{1}{\sqrt{5}}(\frac{1+\sqrt{5}}{2})^{k}$
+	\end{enumerate}
+\section{Week 5}
+	\begin{enumerate}
+		\item Complex Matrices
+		\begin{itemize}
+			\item $C^{n}$: Complex counter part of $R^{n}$
+			\item inner product $x\cdot y = \bar{x}^{T}y$
+			
+			$\bar{x}^{T}y \neq \bar{y}^{T}x$
+			
+			$\begin{Vmatrix}x\end{Vmatrix}^{2} = \bar{x}^{T}x$
+			\item $A^{*} = $Conjugate Transpose of $A = \bar{A}^{T}$
+		\end{itemize}
+		\item Hermitian Matrix
+		\begin{itemize}
+			\item $A^{*} = A$, equivalent of symmetric matrices in complex
+			\item All Eigenvectors are real and orthogonal
+		\end{itemize}
+		\item Unitary Matrix
+		\begin{itemize}
+			\item $U^{*}U = I$
+			\item $\begin{Vmatrix}Ux\end{Vmatrix} = \begin{Vmatrix}x\end{Vmatrix}$
+			\item $U^{-1} = U^{*}$
+			\item $|\lambda | = 1$, where $\lambda$ is any eigenvalue
+		\end{itemize}
+		\item Diagonalization of Hermitian Matrices
+		\begin{itemize}
+			\item $A$ is unitary diagonalizable if $A = U\lambda U^{*}$
+			\item Any $n\times n$ matrix $A$ is similar to an $n\times n$ upper triangular matrix, $A = UTU^{*}$
+			\item If $U_{1} = \begin{bmatrix}w_{1}&w_{2}&...\end{bmatrix}$ is the matrix then take $w_{1} = X_{1}$, first eigenvector then $w_{2} = X_{2} - \frac{w_{1}\cdot X_{2}}{\begin{Vmatrix}w_{1}\end{Vmatrix}^{2}}w_{1}$ 
+		\end{itemize}
+	\end{enumerate}
+\section{Week 6}
+	\begin{enumerate}
+		\item Singular Value Decomposition
+		\begin{itemize}
+			\item Let $A$ be a real symmetric matrix
+			
+			Then all eigenvalues of $A$ are real and $A$ is orthogonally diagonalizable
+			
+			$A = Q\lambda Q^{T}$, $Q^{T}Q = I$
+			\item Any real $m\times n$ matrix $A$ can be decomposed to SVD form
+			
+			$A(m\times n) = Q_{1}(m\times m)\Sigma (m\times n)Q_{2}(n\times n)$, $Q_{1}^{T}Q_{1} = I$, $Q_{2}^{T}Q_{2} = I$
+			
+			$Q_{1}$\&$Q_{2}$ are orthogonal
+			\item $\Sigma = \begin{bmatrix}D&0\\
+			0&0\end{bmatrix}$, where $D = \begin{bmatrix}\sigma_{1}&0&0&...&0\\
+			0&\sigma_{2}&0&...&0\\
+			0&0&0&...&\sigma_{r}\end{bmatrix}$
+			\item $\sigma_{i}$ are called singular values and $\sigma_{i} = \sqrt{\lambda_{i}}$
+			
+			where $\lambda_{i}$ are eigenvalues of $A^{T}A$ and $x_{i} are eigenvectors$
+			\item Let $y_{i} = \frac{A_{i}x_{i}}{\sigma_{i}}$
+			\item $Q_{1} = \begin{bmatrix}y_{1}&y_{2}&...&y{m}\end{bmatrix}$, where $y_{i}$ are eigenvectors of $AA^{T} = Q_{1}\Sigma \Sigma^{T}Q_{1}^{T}$ and
+			
+			$Q_{2} = \begin{bmatrix}x_{1}&x_{2}&...&x{m}\end{bmatrix}$, where $x_{i}$ are eigenvectors of $A^{T}A = Q_{2}\Sigma^{T}\Sigma Q_{2}^{T}$
+		\end{itemize}
+		\item Positive Definite
+		\begin{itemize}
+			\item A function $f$ that vanishes at $(0,0)$ and is strictly positive at other points
+			\item For $f(x,y) = ax^{2} + bxy + cy^{2}$ to be positive definite
+			
+			$a,c > 0$ and $ac > b^{2}$
+			\item If $ac = b^{2}$ then $f(x,y)$ is positive semi-definite($a>0$) or negative semi definite($a<0$)
+			\item If $ac < b^{2}$ then $(0,0)$ is saddle point
+			\item $f(x,y) = v^{T}Av$, where $v = \begin{bmatrix}x\\
+			y\end{bmatrix}$ and $A = \begin{bmatrix}a&b\\
+			b&c\end{bmatrix}$
+			
+			$|A| < 0\implies$ saddle point, eigenvalues of $A$ are positive if $f(x,y)$ is positive definite
+			
+			$|A| = 0\implies$ semi definite
+		\end{itemize}
+	\end{enumerate}
+\end{document}
