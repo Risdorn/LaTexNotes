@@ -1,0 +1,324 @@
+\documentclass[a4paper]{article}
+\input{head}
+
+\begin{document}
+
+\fancyhead[c]{}
+\hrule \medskip
+\begin{minipage}{0.295\textwidth}
+\raggedright
+Rishabh Indoria
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\centering
+\LARGE
+MAD II
+\end{minipage}\
+\begin{minipage}{0.295\textwidth}
+\raggedleft
+\today \hfill \\
+\end{minipage}
+\medskip \hrule
+\bigskip
+
+\section{Week 1}
+\begin{enumerate}
+    \item JAMStack  is a technology stack comprising of JavaScript, API and Markup.  It separates out the frontend from the backend, and they both can be updated/modified independently without affecting the other.  The term is coined by Mathias Billmann.
+    \item JavaScript can be used on the client/browser or server (node) side.  It helps reduce the load on the server. Most JavaScript engines at the browser use UTF-16 for encoding. Comparison using “===” operator checks the equality of value and type of data.  This helps avoid implicit “coercion”.
+    \item var  has a function-level  scope, while let and const  has a block-level scope.  It implies variables declared using let and const  don’t  exist outside the block. However var  can change a global variable. To create a global  variable, don’t use any keyword.
+    \item AJAX stands for Asynchronous JavaScript and XML. The term was first used in 2005 by Garrett. Original JS could be executed only from a browser, but Node.js allowed executing JS code in a command line environment.
+    \item A polyfill is a piece of code (usually JavaScript on the Web) used to provide modern functionality on older browsers that do not natively support it.
+\end{enumerate}
+\section{Week 2}
+\begin{enumerate}
+    \item Array operations
+    \begin{itemize}
+    \item To find length of an array x, use x.length
+    \item To delete all elements of an array x, use x = []
+    \item To delete a n element from an array x, use delete x[idx]. However, this operation leaves a hole.
+    \item To delete the last element of an array x, use x.pop()
+    \item To delete the first element of an array x, use x.shift()
+    \item To  delete multiple elements of an array x, use x.splice(start idx, $\#$elements)
+    \item To add element into an array x, use x.push()
+    \item Assigning x.length  creates holes in the array.
+    \item new Array() defines an array, all of whose elements are holes initially. Array()  can also be used instead.
+    \item Use …x to spread out the array x inside another data structure.
+    \item If x is an array, […x] creates a copy of x.
+    \item y = x.find(t $\implies$ t < 0) finds the first value in array x that’s less than 0.
+    \item y = x.filter(t $\implies$ t < 0) finds all values in array x that’s less than 0, and returns them in an array format.
+    \item x.map(t $\implies$ t > 0 ? ‘+’: ‘-’ ) returns an array containing ‘+’ for all positive values in array x, and ‘-’ for all negative values.
+    \item x.reduce((a, i) $\implies$ a + i, 0) returns the cumulative sum of all elements in x.a  gets initial value of 0, and is accumulated as it marches through each element in x(represented as i)
+    \item x .sort() sorts all elements in the array, but does a lexical sort.
+    \item x.sort((a, b) $\implies$ a - b ) sorts all elements in the ascending order. Similarly, x.sort((a, b) $\implies$ b  -  a)  sorts all elements in the descending order.
+    \end{itemize}
+    \item Loop
+    \begin{itemize}
+    \item In a C-style for loop, one cannot use a const to declare the variable, since const cannot be incremented. Use let  or var.
+   \item C-style for loop  loops over all indices of the array. for…in  also loops over array indices. for…of loops over values  instead.
+   \item C-style for loop loops over holes; Similarly, for…of  also loops over holes. for…in  does not loop over holes.
+   \end{itemize}
+   \item Objects
+   \begin{itemize}
+   \item Object.keys(x) returns a list with the indices of the array x. Note that all indices are of type string, not number. This is unlike Python.
+   \item Object.entries( x) returns a list containing lists, each containing a key (as a string) and its corresponding value.
+   \item Values in an object can be accessed as x[‘first’]  or x.first, assuming first  is a key in x. console.log(x)  will print all its entries.
+   \item C-style for loop  loops over all indices of the object. for…of cannot be used with objects directly (because objects are not iterable), unless used on its entries like Object.entries(x).
+   \item Object.keys(person).length returns the number of keys in the object person. Note that person.length  will return undefined.
+   \item this refers to the current object.
+   \item Instead of defining full name as a function, it’s possible to define it as a property by using get keyword. Similarly, set  keyword can be used to set one or more attributes of the object.
+   \item When executed as a script in the HTML, console.log(this) outputs Window  object. However, on a node.js environment/browser console (REPL in general), output will be a global  object.
+   this  refers to the calling object when used in a normal function, but since arrow functions work on the parent scope  (global object), it will not work.
+   \end{itemize}
+   \item Importing/Exporting
+   \begin{itemize}
+       \item type=” module”  is mandatory when using the script inside an html file, if there’re import/export statements in the script.
+       \item import {c, energy} from ‘./module1.js’; imports  variables c  and energy  exported  from module1.js. In order to export, use export c;  in module1.js. Note that it’s not necessary to export internal  functions of module1.js.
+       \item variables/functions can be renamed during export or import  process.
+       \item When importing, only a read-only view of the export variable is available. Hence, it’s not possible to change the value of c, after importing.
+   \end{itemize}
+   \item Classes
+   \begin{itemize}
+       \item Implementation of class in JS involves setting prototype  of one object to another (which will then act as its parent)
+       \item JS doesn’t support multiple inheritance. In the case of inheritance, the constructor must explicitly call super().
+       \item Implementation of class in JavaScript uses $\_\_$proto$\_\_$ keyword.
+       \item In order to get the name of the class from its object O, use it like O.constructor.name
+   \end{itemize}
+   \item Functions
+   \begin{itemize}
+       \item In JavaScript, a function  has a method named call, which when called will in turn invoke  the function. The first parameter for the call method is the context  in which you’re invoking it. 
+       \item apply method of the function allows to call it in the context of another object, while also passing a list of arguments as a list. 
+       \item bind method of the function allows to create a closure and creates another short-cut function with a pre-defined argument.
+       \item When used with arrow functions, the first argument gets ignored in call, apply and bind and always refer to the enclosing context.
+   \end{itemize}
+   \item Event queue: A task from task queue will be pushed to call stack, only if the call stack is empty. This is  the run-to-completion semantics in JS.
+\end{enumerate}
+\section{Week 3}
+\begin{enumerate}
+    \item State
+    \begin{itemize}
+        \item System state and Application state are examples of persistent state/data
+        \item State of the page which is currently visible to the user is an example of ephemeral state.
+        \item Application state is everything that is present in  the memory when the app is running.
+        \item In Imperative programming, all steps involved in solving the problem needs to implemented.
+        \item In Declarative programming, only what to do needs to be declared.
+        \item The system state is typically a huge collection of data.
+        \item The user interface is dependent on the application state.
+    \end{itemize}
+\end{enumerate}
+\section{Week 4}
+\begin{enumerate}
+    \item Vue.js
+    \begin{itemize}
+        \item @click  can be used as a shorthand for v-on:click during event binding.
+        \item Computed property is generally derived from reactive properties of Vue instances, and are themselves reactive.
+        \item Computed properties are by default getters.
+        \item Computed properties are cached based on their reactive dependencies.
+        \item Computed properties  should not be directly mutated.
+        \item Watcher is a function which is triggered when the property it refers to changes. The parameters of a watch function are new value  and old value  in the same order.
+        \item An element with v-show directive is always rendered irrespective of the condition’s truth value.
+        \item When v-if and v-for  is used on the same element, v-for is evaluated first.
+        \item ref in Vue allows us to directly reference the DOM element, and can be accessed only after the element is mounted.
+        \item Vue components must be named when defining it using Vue.component construct, or need to be registered with the parent object
+        \item While defining data for the Vue components, it needs to be returned, rather than defined as an object.
+        \item v-bind  directive is used for one way data binding.
+        \item v-model directive is used for two-way data binding.
+    \end{itemize}
+\end{enumerate}
+\section{Week 5}
+\begin{enumerate}
+    \item Vue.js
+    \begin{itemize}
+        \item BeforeCreate event gets called before the data, methods and watchers are setup. 
+        \item Created  event gets called after the above are setup, but before the instance is mounted. el will not be available during this event.
+        \item BeforeMount  event gets called after the el is available, but before mounting process is completed.
+        \item Lifecycle hooks can’t be handled using arrow functions, but full functions.
+        \item It’s typical to fetch  data from backend during Mounted event, but it can also be done during Created event. These events can be handled in async.
+        \item The lifecycle hooks are triggered implicitly, depending on the state of the component.
+        \item All events like mouse or button clicks are asynchronous.  Apart from these, there’re certain JavaScript functions like setTimeOut that’re inherently asynchronous.
+        \item Calling a function with an async prefix on its definition, delivers a Promise  object. An async function implicitly returns a Promise that resolves with the value returned by the function. If the function throws an error, the Promise is rejected with the thrown error as its value.
+        \item Promise is a proxy for some value not necessarily known during creation. Promise always runs asynchronously
+        \item Promise accepts a single parameter – a tuple with two callback functions. The first callback is called when the promise is resolved, and second is called when the promise is rejected
+        \item Promise  can be in any of 3 states = accepted, rejected or pending
+        \item Using a then keyword on a Promise object, will resolve it  (using the resolve handler  function passed its first/only parameter). But, the timing of resolution isn’t predictable.  Optionally, it can also take a reject handler function as its second parameter
+        \item Catching an error from a Promise must be done using .catch  syntax.
+        \item The keyword await can only be used inside async functions, except Chrome/Firefox browser console.
+        \item The promises in JavaScript can be resolved synchronously, but are designed to work asynchronously.
+        \item Here is a general technique to solve problems related to promises and async/await.
+        \begin{itemize}
+            \item Follow path of execution. Look for the  main program. Ignore function definitions.
+            \item The default path of execution inside a function or even a promise is always synchronous. This is true even when the function is defined as async.
+            \item When execution reaches resolve/reject phase of a promise, it skips and executes the next line. If resolve/reject occurs inside a function, it skips all remaining lines in the function.
+            \item setTimeOut inside an async function makes it asynchronous.
+        \end{itemize}
+        \item Fetch method returns a promise object that’s guaranteed to resolve, unless there’s a network error. Resolution can be HTTP errors though.
+        \item Though fetch API supports the use of the async/await syntax, which allows you to write asynchronous code in a synchronous-looking style, the underlying network request is still processed asynchronously.
+        \item Fetch  method has two parameters = URL, and an init  object.
+        \item Cookies are key/value pairs used by website servers to store state information on the browser.  Typically, when the server responds to the client requests, it instructs the client to stores the cookies.
+        \item Client automatically sends cookies in subsequent requests to the server so that the server is aware of the client state. The option “credentials: ‘omit’” ensures that no cookies are sent with the request.
+        \item A static method cannot be invoked by a class object in JavaScript.
+        \item A child class constructor must call the parent class constructor to instantiate the child class.
+        \item A function that accepts another function as its parameter, or one that returns another function is called a higher-order function
+        \item XMLHttpRequest, Fetch, SetTimeOut  are all examples of asynchronous APIs
+        \item Finally block doesn’t take an input, or return anything.
+        \item Catch  block catches exception raised from the previous block. If the previous block doesn’t raise an exception, it’ll be skipped.
+        \item If then block does not handle rejection of a promise, catch  block can handle it optionally.
+    \end{itemize}
+\end{enumerate}
+\section{Week 6}
+\begin{enumerate}
+    \item Storage, Validation
+    \begin{itemize}
+        \item LocalStorage as well as SessionStorage are client-side storage mechanisms and local to a specific browser. Data is stored as key-value pairs in string format  in both cases.
+        \item The data stored by a specific domain in local storage of the browser cannot be directly accessed by its subdomain.
+        \item Data stored in LocalStorage  persists across app refreshes and even machine restarts. Data stored in SessionStorage survives page refreshes, but expires when page session ends.
+        \item Use novalidate  to prevent form validation by the browser
+        \item SFC allows scoped  CSS($\langle$style$\rangle$), component modularization ($\langle$script$\rangle$)and pre-compiled  templates.
+        \item Jest, Chai, Mocha are some of the tools used to test Vue.
+        \item Vuelidate and VeeValidate are libraries to perform Form validation with Vue.
+        \item Browser provides simple validations for certain type of input elements. Server side validation must be performed, even when such client-side validation exists. 
+        \item Client side storage can be used to store web-generated documents for offline  use, or personalized site preferences.
+    \end{itemize}
+\end{enumerate}
+\section{Week 7}
+\begin{itemize}
+    \item Props are used to pass information from parent to child.
+    \item Events are emitted to pass information from child to parent.
+    \item Child can directly invoke parent function and modify parent data using \$parent
+    \item An SPA fetch and update parts of the DOM asynchronously as and when needed. It helps to improve speed of transaction on page, page loading speed etc.
+    \item When the server is “thin”, all states and updates are handled on the browser using JavaScript, and gives pure data API service.
+    \item Flux, NgRx and Redux are state management solutions. NgRx is used by Angular applications, and Flux/Redux is used by React applications.
+    \item Vuex is a reactive  state management solution used in Vue applications. It provides a common solution for parent-child (components) communication. Vuex is preferred in cases where multiple views depend on the same state.
+    \item State in a Vuex  should be changed only through committing mutations, from within a method. Mutations  are always synchronous.
+    \item When state access/changes  need to be asynchronous, use Actions.
+    \item Getters  in a Vuex  is similar to computed properties, but limited to the Vuex store. Getters shouldn’t change state. 
+    \item Store state can be accessed as this.\$store.state, by all child components including its descendants.
+    \item Vue DevTools lists all mutations requested, time of mutations, and which component requested mutation. It also records mutations and allows time travel debugging.
+    \item Target path in router-link can be set using to attribute, which will render it as a hyperlink tag. To render it as any other tag, use tag attribute.
+    \item router-view renders the component matched by the path in router-enabled app. router-link enables user navigation in router-enabled app
+    \item SPA loads only a single web document and then updates body content asynchronously/dynamically as and when required. This results in improved  speed of transaction on page, page loading speed etc.
+    \item Web Manifests, service workers are some characteristics of a PWA.
+    \item A Web worker is a script started by a web content that runs in the background, and  can perform computation and fetch requests and communicate back messages to the origin web content.
+    \item Though most PWAs are implemented as SPAs, they’re fundamentally different. Not all PWAs are SPAs, and not all SPAs are PWAs.
+    \item Search engine optimization, managing browser history are some challenges of SPAs.
+\end{itemize}
+\section{Week 8}
+\begin{itemize}
+    \item CORS allow servers to indicate which origins can load the resource from the server. For example, Flask APIs should be CORS-enabled to be used by a client. Note that CORS is disabled in Flask by default. However, it’s not required if the request comes from the same origin.
+    \item The CORS headers are generally prefixed with the value “Access-ControlAllow”.
+    \item JWT contains encoded JSON data and is used as an access token to share information between two parties.
+    \item PUT APIs update the entire resource is updated, whereas PATCH APIs update only the necessary fields
+    \item An HTTP method is idempotent if the intended effect on the server of making a single request is the same as the effect of making several identical requests. Examples include GET, PUT, UPDATE, DELETE. POST is not idempotent.
+    \item An HTTP method is  safe if it doesn't alter the state of the server. In other words, a method is safe if it leads to a read-only operation. Examples include GET, HEAD, OPTIONS.
+    \item All safe methods are also idempotent, but not all idempotent  methods are safe. For example, PUT and DELETE are both idempotent but unsafe.
+    \item JSX (JavaScript XML) is a syntax extension to JavaScript that allows writing HTML in React.
+    \item Token Based, OAuth and JSON Web Token (JWT) are the common methods of API authentication.
+    \item OAuth is a protocol used to authorize access to resources, hosted on a different server, on behalf of a user.
+    \item In the REST architectural style, both the client and the server should be stateless.
+    \item Following are two issues with REST APIs, which are solved using GraphQL
+    \begin{itemize}
+        \item Construction of complex queries requires client side handling.
+        \item When data is from multiple data sources, the fusion of data becomes an issue.
+    \end{itemize}
+    \item GraphQL can execute a complex query to return a complex data set with a single request, whereas, REST APIs may require to make multiple requests for the same. 
+    \item GraphQL  is a query language for APIs with a single-entry point. It allows a type system to describe the schema for backend data. It is not tied to any specific database or storage engine.
+    \item GraphQL resolvers help resolve queries in any programming language, including Python, Java and C++ 
+    \item GraphQL supports a ContentType  called application/graphql, which is well suited to query the serverfor multiple resources. GraphQL also allows to make POST requests using JSON body.
+    \item GraphQL helps to fetch exactly the same data which is needed, and avoids over-fetching as well as under-fetching.
+    \item In REST architecture, GET requests are generally considered cacheable, but POST requests aren’t.
+    \item The response to a GraphQL  request is a JSON response, with the result stored in the “data” field.
+    \item JAM Stack stands for JavaScript, API and Markup. It takes storage, logic, and presentation into the consideration
+    \item JAM Stack can’t guarantee high performance and stability of the application, it improves them.
+    \item Jam stack applications are faster and more secure.
+    \item Jekyll, Hugo and MkDocs are a few common static site generators.
+    \item A permalink is a permanent link which is not expected to change throughout the lifetime of a resource, and identifies a resource uniquely.
+\end{itemize}
+\section{Week 9}
+\begin{itemize}
+    \item Flask works in threaded mode by default, but can operated in non-threaded mode too.
+    \item Multiple threads can execute concurrently or in parallel.
+    \item Concurrency is achieved using context switching in a single-core environment
+    \item In Parallelism, multiple threads can be executed at the same time on multiple processors.
+    \item Web server can dispatch tasks to be executed later. Use it when response to the user doesn’t need to depend on the outcome. Cannot be used in the case of API fetch task.
+    \item In the case of a large number of long-running tasks, employ task queues. User request handler pushes tasks into task queues and handled in FIFO mode.  Examples include Python asyncio, JS async/await.
+    \item How does task queue work?
+    \begin{itemize}
+        \item Client pushes a task in the queue, provided pushing it into the queue is faster than executing it.
+        \item Server polls  the queue at regular intervals. This is CPU/network intensive.
+        \item Alternatively, server keeps connection open with the client  until it receives a response, and does a long-poll.
+        \item There should be enough workers to empty the queue regularly, else backlog will build up. 
+        \item It can also potentially lead to deadlocks and related issues.
+        \item Celery is a task queue implementation for Python web applications. It supports RabbitMQ, Redis, Amazon SQS and Zookeeper for message queueing.
+        \item Google AppEngine, Tencent cloud, AWS are some high-end providers of task queues.
+    \end{itemize}
+    \item Message queues, brokers are systems that enable communicate between servers – that manage tasks. Messaging typically works in FIFO mode.
+    \item Message queues provide a buffer that temporarily stores messages.
+    \item In general, a message in message queue is processed only once in point-to-point messaging.
+    \item Advantages with using a message broker include scalability (can add servers), guaranteed delivery of messages (though delayed), ease in performance monitoring, batch processing of messages.
+    \item Advanced Message Queueing Protocol (AMQP) has many standard implementations like RabbitMQ and Apache ActiveMQ.
+    \item Redis
+    \begin{itemize}
+        \item Redis uses RESP protocol for communication between client and server, and uses 6379 as the default port.
+        \item Redis was originally designed as a caching mechanism  in the server side.
+        \item Redis can be used to store messages (in RAM) and used in a pub-sub mode, especially for smaller messages.  Redis can also be used as a NoSQL database.
+        \item Disadvantage of Redis is the volatility of its store, and loses messages when restarted.
+        \item Redis supports multiple datatypes
+        \item It’s possible to set expiration time of data in Redis
+    \end{itemize}
+\end{itemize}
+\section{Week 10}
+\begin{itemize}
+    \item One of the techniques widely used for messaging is to send HTTP GET/POST requests to certain endpoints (called web-hooks) exposed by a server, which can in turn initiate further operations. Such endpoints are also referred to as reverse APIs, since they’re used to push information, and not to retrieve data. 
+    \item A webhook allows two different applications to communicate with each other, over HTTP protocol.
+    \item The primary consumers of webhooks are machines  (servers), not humans.
+    \item A webhook notifies the client every time an event occurs to which client has subscribed.
+    \item For example, Twilio can send messages or emails, when events occur on the platform. In this case, Twilio provides you with an immediate response (status) and calls you back  once on the configured web-hook after all messages has been sent.
+    \item Client can pull latest information from the server. Alternatively, the server can push data to the client (server-sent events), as far as the following conditions are met
+    \begin{itemize}
+        \item Client and server maintains a persistent connection between them. 
+        \item Web worker is kept running on the client, in the background.  This is possible through JS push API, or web push protocol.
+        \item It’s not required that the application is loaded on a user agent (browser).
+        \item WebSocket is a protocol layered over TCP, in which connection between client and server is always open. It’s used for 2-way communication.
+    \end{itemize}
+\end{itemize}
+\section{Week 11}
+\begin{itemize}
+    \item Lighthouse built into the Chrome browser gives the following metrics:
+    \begin{itemize}
+        \item First Contentful paint (Something displayed on the screen)
+        \item Speed Index (Captures video of page loading and analysis)
+        \item Largest Contentful paint (“Most of the page” rendered)
+        \item Time to Interactive (Usability)
+        \item Total Blocking Time (Time blocked from responding to user)
+        \item Cumulative Layout Shift (Rearrangement of page after initial load)
+    \end{itemize}
+    \item Lighthouse score considers the following while generating a score:
+    \begin{itemize}
+        \item Performance
+        \item Accessibility
+        \item Best practices
+        \item Search Engine Optimization (SEO)
+        \item Progressive Web App (if relevant)
+    \end{itemize}
+    \item In general, lighthouse score is not a good measure of the site’s usability, but can be used as a guideline
+    \item The function of a load balancer is just to forward the requests to the server, using one of round-robin, least-load  or some such algorithm.
+    \item HTTP pipelining allows client to send multiple request to the server over a single TCP connection without waiting for their response
+    \item While establishing a proxy between client and server, it’s ideal to have one nearer to the client for faster response.
+    \item CDN is another form of proxy, but encoded in the URL.
+    \item Reverse proxy servers can cache the response based on the request.
+    \item Tools used for live monitoring include:
+    \begin{itemize}
+        \item ElasticSearch / LogStash / Kibana (ELK stack)
+        \item Grafana + InfluxDB + Prometheus
+    \end{itemize}
+    \item Caching may occur at one of more of server, proxy front-end, network router or client.
+    \item Shared caching and Local (private) caching are two types of caching, wherein the latter is results in faster response than the former.
+    \item ‘no-cache’ directive in the response header indicates that the client must revalidate the response in every subsequent request.
+    \item Flask caching  uses cache.cached  decorator with a timeout paramater. The server response to the web-root(index.html) results in caching the response, and times out after t seconds.
+    \item The memoize decorator includes the function parameters in the cache key.
+    \item Both the cache.cached and memoize  decorators work the same way for functions not having any parameters.
+    \item Caching done at browser level can be cleared by doing a hard-refresh (Ctrl+F5 in Chrome). Note that this can still result in a cached response being served from a proxy server.
+    \item E-Tag is a response header to validate the current version of resource.
+    \item E-Tag is a string of ASCII characters placed between double quotes.
+    \item For get and head request, If-Match request header is sent to get the resource only if E-Tag value
+\end{itemize}
+\end{document}

@@ -12,7 +12,7 @@ Rishabh Indoria
 \begin{minipage}{0.4\textwidth}
 \centering
 \LARGE
-Buisness Analytics
+Business Analytic
 \end{minipage}\
 \begin{minipage}{0.295\textwidth}
 \raggedleft
@@ -148,7 +148,7 @@ Buisness Analytics
 				\item $x_{q_{i}}^{M} = \hat{F}^{-1}(q_{i})$
 				\item $x_{q_{i}}^{S} = \tilde{F}^{-1}(q_{i}) = x_{i}, i = 1,2,3,...$
 				\item If our distribution is correct, then we will get a line with slope 1 and intercept 0 (Linear) \& $x_{q_{i}}^{M} \approx x_{q_{i}}^{S}$
-				\item Amplifies difference between the tails of model distribution.
+				\item Amplifies difference between the tails of model distribution.\\
 			\end{itemize}
 			\item Probability-Probability Plot(P-P Plot)
 			\begin{itemize}
@@ -178,7 +178,7 @@ Buisness Analytics
 \section{Week 3}
 	\begin{enumerate}
 		\item Ordinal Data: Categorical data which can be ordered.
-		\item Conditional Probability: $\frac{\text{Joint Probility}}{\text{Marginal Probability}}$
+		\item Conditional Probability: $\frac{\text{Joint Probability}}{\text{Marginal Probability}}$
 		\item Conditional Probability can be compared using Joint Probability table(Contingency Table)
 		\item Baye$^{'}$s Rule
 		\begin{itemize}
@@ -216,7 +216,7 @@ Buisness Analytics
 		\begin{itemize}
 			\item Properties: Non-Negative, Continuous \& Differentiable and Generally Downwards Slopping
 			\item Price Sensitivity = $\frac{D(P_{2}) - D(P_{1})}{P_{2} - P_{1}}$
-			\item Demand Elasticity = $-\frac{\frac{D(P_{2}) - D(P_{1})}{D(P_{1})}}{\frac{P_{2} - P_{1}}{P_{1}}}$
+			\item Demand Elasticity = $-\frac{\frac{D(P_{2}) - D(P_{1})}{D(P_{1})}}{\frac{P_{2} - P_{1}}{P_{1}}}$\\
 		\end{itemize}
 		\item Linear Response Curve
 		\begin{itemize}
@@ -240,7 +240,192 @@ Buisness Analytics
 		\begin{itemize}
 			\item Loss/Error = $\frac{\Sigma (y - \hat{y})^{2}}{N}$
 			\item error term $e = (y - \hat{y})^{2} \sim N(0,\sigma_{e}^{2})$
-			\item error terms are independent, have equal variance and are nirmally distributed. 
+			\item error terms are independent, have equal variance and are normally distributed. 
 		\end{itemize}
 	\end{enumerate}
+ \section{Week 5}
+ \begin{enumerate}
+     \item Constant Elasticity Model
+     \begin{itemize}
+         \item $D(P) = cP^{-\epsilon}\implies \log(D(P)) = \log(c) - \epsilon\log(P)$
+         \item Transformation based on which quadrant graph lies in \\
+         Ist Quadrant: $(x,y) \longrightarrow (x^2,y^2)$\\
+         IInd Quadrant: $(x,y) \longrightarrow (\log(x),y)$ or $(\frac{1}{x},y)$\\
+         IIIrd Quadrant: $(x,y) \longrightarrow (\log(x),\log(y))$ or $(\frac{1}{x},\frac{1}{y})$\\
+         IVth Quadrant: $(x,y) \longrightarrow (x,\log(y))$ or $(x,\frac{1}{y})$
+     \end{itemize}
+     \item Performance Metrics
+     \begin{itemize}
+         \item $R^2$: Amount of variability explained\\
+         Formula: $1 - \frac{sum squared regression(SSR)}{total sum of squares(SST)}$ where, SSR: $\Sigma(y_i - \hat{y}_i)^2$ and SST: $\Sigma(y_i - \Bar{y}_i)^2$
+         \item Multiple R: Coefficient of Correlation, Strength of Association\\
+         Formula: $\sqrt{R^2}$
+         \item Std Error: Standard Deviation of Error Terms
+         \item F Statistic: $\frac{MSE}{MS of Regression}$
+         \item Confidence Level: Generally $0.95$
+         \item $\alpha$ value: 1 - Confidence Level. If it is greater than p-value then we reject null hypothesis $H_0$
+     \end{itemize}
+     \item Optimal Pricing
+     \begin{itemize}
+         \item Revenue Maximization\\
+         Revenue = $P.D(P)$\\
+         Set $\frac{\delta R(P)}{\delta P} = 0$ and $\frac{\delta^2R(P)}{\delta P^2} < 0$
+         \item Profit Maximization\\
+         Profit = Revenue - Cost\\
+         Assuming Marginal Cost = C $\implies \pi(P) = P.D(P) - C.D(P)$
+     \end{itemize}
+ \end{enumerate}
+ \section{Week 6}
+ \begin{enumerate}
+     \item Multiple Linear Regression
+     \begin{itemize}
+         \item $y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n + \epsilon$, $\epsilon ~ N(0,\sigma_\epsilon^2)$
+         \item Adjusted $R^2$: Adjusts for the amount of $X_i$\\
+         Formula: $1 - \frac{(1 - R^2)(N - 1)}{N - p - 1}$, where $N$ is the total sample size and $p$ is the number of independent variables.
+         \item Calibration Plot: Scatter Plot between $y$ and $\hat{y}$
+         \item R: Correlation between $y$ and $\hat{y}$
+         \item Col-linearity: Very high correlation between explanatory variables.
+         \item Path Diagram: Schematic Drawing of relationship among explanatory variables and response
+     \end{itemize}
+     \item Variance Inflation Factor
+     \begin{itemize}
+         \item Quantifies amount of unique variation in each explanatory variable and measures effect of col-linearity
+         \item VIF of $X_j$ = $\frac{1}{1-R_j^2}$
+         \item $R_j^2$ is coefficient of determination in regression of $X_j$ on ALL other explanatory variables.
+         \item $se(b_1) = \frac{se}{\sqrt{n}}.\frac{1}{s_x}$, with VIF $se(b_1) = \frac{se}{\sqrt{n}}.\frac{\sqrt{VIF(X_1)}}{s_x}$
+     \end{itemize}
+ \end{enumerate}
+ \section{Week 7}
+ \begin{enumerate}
+     \item Logistic Regression(Classification)
+     \begin{itemize}
+         \item ODDs(Success in some event) = $\frac{Pr(Y=1)}{Pr(Y=0)}$
+         \item logit = $\log(ODDs) = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n$
+         \item $Pr(Y=1)$ = $\hat{y}$ = $\frac{e^{w_0 + w_1x_1 + w_2x_2 + ...}}{1 + e^{w_0 + w_1x_1 + w_2x_2 + ...}}$
+         \item We are going to maximize log likelihood or minimize negative log likelihood\\
+         minimize $-(y\log(\hat{y}) + (1-y)\log(1-\hat{y})$
+         \item if $\hat{y}\geq $ cutoff(generally around $0.5$) then prediction is $1$ else $0$
+         \item Performance Metrics\\
+         \begin{tabular}{|c||c|c|}
+			\hline
+			& Predicted $1$& Predicted $0$\\
+			\hline \hline
+			Actual $1$& True Positive(TP)& False Negative(FN)\\
+			\hline
+			Actual $0$& False Positive(FP)& True Negative(TN)\\
+			\hline
+		\end{tabular}\\
+        Accuracy: $\frac{TP + TN}{Total}$\\
+        Precision: $\frac{TP}{TP+FP}$\\
+        Sensitivity/Recall: $\frac{TP}{TP+FN}$\\
+        F1 Score: $\frac{2.Precision.Recall}{Precision+Recall}$
+     \end{itemize}
+ \end{enumerate}
+ \section{Week 8}
+ \begin{enumerate}
+     \item Efficiency(Productive Efficiency)
+     \begin{itemize}
+         \item Effective utilization of resources for maximization of benefits
+         \item Productive efficiency is an aspect of economic efficiency focusing on maximizing output under given conditions.
+         \item Productive efficiency "frontier" are all combination of o/p such that the production of one product cannot be increased without sacrificing the output of the other.
+     \end{itemize}
+     \item Efficiency Measurement
+     \begin{itemize}
+         \item In simplest way: $\frac{output}{input}$
+         \item But there can be multiple types of inputs: Labor, Infrastructure, Money(Resources go as inputs)
+         \item Outputs can be customers served/acquired, Profits, Sales volume
+         \item How has the organization performed is the output\\
+     \end{itemize}
+     \item Optimization Method - Data Envelopment Analysis
+     \begin{itemize}
+         \item Non Parametric Mathematical method to find production frontier. Used to calculate productive efficiency of an economic unit. Economic unit is refereed to as "Decision Making Unit". Measures Relative Efficiency, formulates optimization problem for each DMU
+         \item DEA Logic
+         \begin{itemize}
+             \item For multiple inputs and outputs define weighted ratio. Some inputs cannot be directly added, define weight for each input. Similar for outputs.
+             \item Let each DMU choose input and output weights to its advantage
+             \item For each DMU:-
+             Objective constraint: Maximize its efficiency by choosing its weights carefully\\
+             Efficiency $\epsilon[0,1]$ and using these weights none of the other DMU's should get efficiency $> 1$\\
+             Using these weights is it cannot achieve an efficiency of $1$, then this DMU is truly inefficient.\\
+             Using these weights if a different DMU gets an efficiency of 1, then that DMU is really good.
+         \end{itemize}
+         \item DEA Mathematical Formula\\
+         K = Number of DMU's considered in the data set\\
+         N = Number of inputs considered, M = Number of outputs considered\\
+         $I_{ik}$ = Recorded value of input i for DMU k, $O_{jk}$ = Recorded value of output j for DMU k\\
+         $x_{ik}$ = Weight assigned to input i by DMU k, $y_{jk}$ = Weight assigned to output j by DMU k \\
+         $E_k$ = Efficiency of DMU k = $\frac{Weighted Output}{Weighted Input}$ = $\frac{\Sigma y_{jk}O_{jk}}{x_{ik}I_{ik}}$\\
+         Subject to $E_k < 1, k  = 1, 2, ..., K$. Since, Linear problems are much easier to solve we linearize it.\\
+         For each DMU: Max $\Sigma y_{jk}O_{jk}$ for all j\\
+         Subject to $\Sigma x_{ik}I_{ik} = 1$\\
+         $\Sigma y_{j1}O_{j1} \leq \Sigma x_{i1}I_{i1}$\\
+          $\Sigma y_{j2}O_{j2} \leq \Sigma x_{i2}I_{i2}$\\
+          $...$\\
+           $\Sigma y_{jK}O_{jK} \leq \Sigma x_{iK}I_{iK}$
+     \end{itemize}
+ \end{enumerate}
+ \section{Week 9}
+ \begin{enumerate}
+     \item Prescription for inefficient DMU
+     \begin{itemize}
+        \item Important Economic Concepts: Types of Efficiencies, and Disposable inputs/outputs
+         \item The DMU which is NOT on the efficiency frontier should move in both horizontal AND vertical direction.
+         \item Draw a line from origin to inefficient DMU, then move the DMU along the line towards the efficiency frontier. The point of intersection of this line and efficiency frontier is called Hypothetical Composite Unit(HCU).
+         \item The efficient DMU's which make up the part of the frontier where HCU resides are the reference DMU's for the inefficient one. In terms of optimization problem, we get the value of dual variable or shadow price, the variables whose value is not 0 correspond to the reference DMU.
+     \end{itemize}
+ \end{enumerate}
+ \section{Week 10 and 11}
+ \begin{enumerate}
+     \item Consumer Choice Model
+     \begin{itemize}
+         \item Thinking Process: Consider a consumer comparing four products, we have data for two attributes on these variants, we also have consumer choices data available for us(Consumer provides his/her choices).
+         \item Marketer would like to know how important each attribute is.
+     \end{itemize}
+     \item Conjoint Analysis
+     \begin{itemize}
+         \item It is the analysis of features considered jointly. It constructs a value system and can be used to arrive at the "best" product.\\
+         A Family of techniques that model choice by decomposing overall preference in terms of relative values of components or attributes to respondents.
+         \item Forms
+         \begin{itemize}
+             \item Choice Based Conjoint(CBC) Analysis: Most Common, Customer chooses most preferred full profile product amongst 3-4 options.
+             \item Adaptive Conjoint Analysis(ACA): Each customer is asked different set of questions which are dynamically decided based on their responses.
+             \item Full Profile: Full suite of options are presented to the customer and their preference is sought.
+             \item Menu-based: Customer is shown a list of attributes with associate prices, Customer then chooses what they want in their ideal product.
+         \end{itemize}
+         \item Applications
+         \begin{itemize}
+             \item Marketing: Once Attributes most preferred by customers are known, these can be highlighted in communication channel. Consumers may differ in their choices of preferred attributes and hence CA can help in segmenting the market.
+             \item Product Development: The product dev team can focus on refining these attributes.
+             \item Pricing: Organization can decide to price the product based on level of attribute present. May also reveal consumers willingness to pay(WTP) for particular attributes.
+         \end{itemize}
+         \item The Process: By defining products as a collection of attributes and having individual consumer react to a number of alternatives. One can infer each attributes importance and most desired level for each customer.
+         \item Conjoint Problem\\
+         Product options are represented as points in multi-attribute space. Different consumer correspond to different "ideal points" that denote their "most preferred". Consumer is supposed to prefer the option which is "closer" to this ideal. As a measure of distance normally either the Euclidean metric or the weighted Euclidean metric is used.\\
+         J = \{$1, 2, 3, ..., n$\} = set of options\\
+         P = \{$1,2,...,t$\} = n options are described in terms of t dimensions(number of attributes)\\
+         $Y_j$ = \{$y_{jp}$\} = pre specified location of jth option in the t dimensional space\\
+         $X$ = \{$x_p$\} = ideal point of consumer\\
+         $d_j^u$ = $\sqrt{\Sigma(y_{jp} - x_p)^2}$ = Unweighted distance, $d_j^w$ = $\sqrt{\Sigma w_p(y_{jp}x_p)^2}$ = Weighted distance\\
+         Weights are non negative for all attributes, $s_j = (d_j^w)^2$ = Squared distance\\
+         $\Omega$ = \{$j,k$\} denote the set of ordered pairs\\
+         Constraint: $s_k \geq s_j$, B = Poorness of fit = $\Sigma(s_j - s_k)^+ $ = max$(0,s_j-s_k)$
+         \item Final Formulation\\
+         $a_{jkp}$ = $y_{kp}^2 - y_{jp}^2$ $\forall (j,k)\epsilon \Omega$, $A_p$ = $\Sigma a_{jkp}$\\
+         $b_{jkp}$ = $-2(y_{kp} - y_{jp})$, $D_p$ = $\Sigma b_{jkp}$\\
+         $V$ = \{$v_p$\} = \{$w_px_p$\}\\
+         $z_{jk}$ = max$[0, -[\Sigma w_pa_{jkp} + \Sigma v_pb_{jkp}]]$\\
+         Min $\Sigma z_{jk}$\\
+         Subject to: $\Sigma w_pa_{jkp} + \Sigma v_pb_{jkp} + z_{jk} \geq 0$\\
+         $\Sigma w_pA_p + \Sigma v_pD_p$ = $1$
+         \item Statistical Method - Linear Regression
+         \begin{itemize}
+             \item Traditionally CA is just a multiple regression problem. Customers ratings for the product concepts form the dependant variables, characteristics of the product are independent variable.
+             \item Estimated Betas associated with the independent variable are the utilities.
+             \item R-Square for the regression characterizes the internal consistency of the respondent.
+             \item Use one hot encoding then remove one column to eliminate col linearity.
+             \item Part worth: Level utilities for attributes. Total worth of product is calculated from multiple attributes and multiple levels of attributes together, utility values for separate parts pf the product are part worth.
+             \item Importance of each attribute: Calculate the range of part worth, then find total of the ranges, then the importance = $\frac{range}{total}$
+         \end{itemize}
+     \end{itemize}
+ \end{enumerate}
 \end{document}
