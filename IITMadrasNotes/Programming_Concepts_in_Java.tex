@@ -1,0 +1,567 @@
+\documentclass[a4paper]{article}\input{head}
+
+\begin{document}
+
+\fancyhead[c]{}
+\hrule \medskip
+\begin{minipage}{0.295\textwidth}
+\raggedright
+Rishabh Indoria
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\centering
+\LARGE
+Programming Concepts in Java
+\end{minipage}\
+\begin{minipage}{0.295\textwidth}
+\raggedleft
+\today \hfill \\
+\end{minipage}
+\medskip \hrule
+\bigskip
+
+\section{Week 1}
+\begin{enumerate}
+    \item Memory Management
+    \begin{itemize}
+        \item Scope: When the variable is available for use
+        \item Lifetime: How long the storage remains allocated
+        \item Memory Stack: Create activation record when function is called. Activation records are stacked, Popped when functions exit, Control links points to start of previous record, Return value link tells where to store result. Parameters are part of the activation record of the function. Two ways to initialize a parameter, call by value (Copy the value) and Call by reference (Parameter points to the same location as argument)
+        \item Heap: Stores dynamically allocated variables, Storage outlives activation record, accesses via some variable in stack. Need to free storage inside heap, else we get dead storage (unusable). Manual Memory Management or Automatic Garbage Collection.
+    \end{itemize}
+    \item Abstraction and Modularity
+    \begin{itemize}
+        \item Use Refinement to divide solution into components
+        \item Build a prototype of each component to validate design
+        \item Interfaces: What is visible to other components\\
+        Specification: Behaviour of the component as visible through interface
+        \item Improve each component independently, preserving interface and specification.
+        \item Control Abstraction: Functions and Procedures, Encapsulate a block of code (Reuse in different contexts)
+        \item Data Abstraction: Abstract data types, Set of values along with operation permitted on them, Internal representation should not be accessible, Interaction restricted to public interface.
+        \item Implicit reuse of implementations: subtyping, inheritance.
+    \end{itemize}
+    \item Object-Oriented Programming
+    \begin{itemize}
+        \item Object: Similar to an abstract data type, hidden data with set of public operations, All interaction through operations.
+        \item Uniform way of encapsulation different combinations of data and functionality.
+        \item Abstraction: Public interface, Private implementation, changing the implementation should not affect interactions with the object.
+        \item Subtyping: If A is a subtype of B, whenever an object of type B is needed, an object of type A can be used. If f() is a method in B and A is a subtype of B, every object of A also supports f() (Implementation of f() can be different)
+        \item Dynamic Lookup: How the method acts is a dynamic property of how the object is implemented. A variable v of type B can refer to an object of subtype A. Static type of v is B, but method implementation depends on runtime type A.
+        \item Inheritance: Re-use of implementations
+        \item Dequeue: Double ended Queue, We can implement a stack or a Queue by using this. This makes Dequeue a subtype of Stack and Queue.
+    \end{itemize}
+    \item Classes and Objects
+    \begin{itemize}
+        \item Class: Template for a data type, How data is stored, How public functions manipulate data
+        \item Object: Concrete instance of template, Each object maintains separate copy of local data, Invoke method on objects.
+        \item Objects implicitly call a constructor function when they are created, in python the constructor has the name \_\_init\_\_()
+    \end{itemize}
+\end{enumerate}
+\section{Week 2}
+\begin{enumerate}
+    \item Hello World in Java\\
+    public class helloworld$\{$\\
+    public static void main(String[] args)$\{$\\
+    System.out.println("hello, world");\\
+    $\}\}$
+    \begin{itemize}
+        \item All code in Java lies within a class, Modifier public specifies visibility.
+        \item Fix a function name that will be called by default. convention is to call it main().
+        \item Need to specify input and output types for main().
+        \item Modifier static, function that exists independent of dynamic creation of objects.
+        \item Each class is defined in a separate file with the same name, helloworld.java
+        \item Programs are usually interpreted on Java Virtual Machine(JVM), provides uniform execution environment across operating systems, Semantics of Java is defined in terms of JVM.
+        \item javac compiles into JVM bytecode, javac helloworld.java creates helloworld.class.
+        \item java helloworld interprets and runs bytecode in helloworld.class
+    \end{itemize}
+    \item Data types
+    \begin{itemize}
+        \item All data should be encapsulated as objects.
+        \item Scalar types: int(4), long(8), short(2), byte(1), float(4), double(8), char(2) and boolean(1).
+        \item single quotes represent characters and double quotes denote strings
+        \item Append f after number for float, else interpreted as double.
+        \item Modifier \textbf{final} indicates a constant.
+        \item When both arguments are integer, / is integer division.
+        \item No exponentiation operator, use Math.pow(a,n), $a^n$.
+        \item \textbf{String} is a built-in class, string constants enclosed in double quotes. + is overloaded for concatenation. Strings are \textbf{not} an array of characters, instead invoke method substring.
+        \item \textbf{Arrays} are also objects, int[] a or int a[]. Combine as int[] a = new int[100]; length variable gives size of array, whereas length method gives size of strings.
+        \item Java does automatic garbage collection.
+    \end{itemize}
+    \item Control Flow
+    \begin{itemize}
+        \item if (condition)$\{$...$\}$ else if (condition)$\{$...$\}$ else$\{$...$\}$
+        \item while(condition)$\{...\}$, do$\{...\}$while(condition)
+        \item for(initialization; condition; update)$\{...\}$
+        \item for(type x: a)$\{$ do something with x; $\}$
+        \item switch(x)$\{$case -1: $\{...\}$ ...$\}$
+    \end{itemize}
+    \item Classes and Objects
+    \begin{itemize}
+        \item A class is a template for an encapsulated type, An object is an instance of a class
+        \item this is a reference to the current object
+        \item Accessor and Mutator methods
+        \item Constructor has the same name as the class\\
+        Overloading: We can have multiple constructors with different signatures\\
+        Signature: input parameters, output parameters.\\
+        A later constructor can call an earlier one using this(params).
+        \item public class Date $\{$\\
+        private int day, month, year;\\
+        public Date(int d, int m, int y) $\{$\\
+        this.day = d;\\
+        this.month = m;\\
+        this.year = y;
+        $\}$\\
+        public int getDay() $\{$\\
+        return (this.day);
+        $\}$\\
+        public int getMonth() $\{$\\
+        return (this.month);
+        $\}$\\
+        public int getYear() $\{$\\
+        return (this.year);
+        $\}$\\
+        $\}$
+        \item new creates a new object\\
+        Date d;\\
+        d = new Date();
+    \end{itemize}
+    \item Basic Input and Output
+    \begin{itemize}
+        \item Console cons = System.console();\\
+        String username = cons.readLine();\\
+        char[] passwd = cons.readPassword();
+        \item Scanner in = new Scanner(System.in);\\
+        String name = in.nextLine();\\
+        int age = in.nextInt();
+        \item System.out.println();\\
+        System.out.print();\\
+        System.out.printf();
+    \end{itemize}
+\end{enumerate}
+\section{Week 3}
+\begin{enumerate}
+    \item Philosophy of OOPS
+    \begin{itemize}
+        \item Algorithms + Data Structure = Programs, Data representation comes later
+        \item OOPS reverses the process. First identify the data we want to maintain and manipulate, then identify algorithms to operate on the data.
+        \item State is the information in the instance variable.
+        \item Encapsulation: should not change unless a method operates on it.
+        \item Identity: Distinguish between different objects of the same class.
+        \item Robust design minimizes dependencies, or coupling between classes.
+    \end{itemize}
+    \item Subclasses and Inheritance
+    \begin{itemize}
+        \item use \textit{extends}, public class Manager extends Employee.
+        \item Manager objects do not automatically have access to private data of parent class.
+        \item Use parent class's constructor using \textit{super}.
+        \item In general, a subclass has more features than the parent class. Subclass inherits instance variables, methods from parent class.
+        \item Subtyping, Employee e = new Manager(...) works because Manager is capable of doing whatever Employee is capable of doing.
+    \end{itemize}
+    \item Dynamic Dispatch and Polymorphism
+    \begin{itemize}
+        \item Overrides definition of parent class if function signature is the same.
+        \item e can only refer to methods in Employee, but if methods are overridden in Manager, then Dynamic dispatch will choose the most appropriate method.
+        \item This type of dynamic dispatch also known as runtime polymorphism or inheritance polymorphism.
+        \item Java class Arrays has a method sort to arbitrary scalar arrays, made possible by overloaded methods.
+        \item Overloading: multiple methods, different signatures, choice is static.
+        \item Overriding: multiple methods, same signatures, choice is static.
+        \item Dynamic Dispatch: multiple methods, same signature, choice made at run-time.
+        \item Type casting: ((Manager) e).setSecretary(a), can check instance with \textit{instanceof}
+    \end{itemize}
+    \item Java Class Hierarchy
+    \begin{itemize}
+        \item Multiple Inheritance: C3 extends C1,C2. Java does not allow multiple inheritance. C++ allows this if C1 and C2 have no conflict.
+        \item Universal superclass: Object
+        \item public boolean equals(Object o), checks pointer equality
+        \item public String toString(), converts value of instance variable to string.
+        \item Both equals and toString are available in Object class.
+        \item Can exploit tree structure to write generic functions, public int find(Object[] objarr, Object o)
+        \item Overriding requires function to have the same signature. Overriding looks for the "closest" match.
+    \end{itemize}
+    \item Subtyping vs Inheritance
+    \begin{itemize}
+        \item If B is a subtype of A, wherever we require an object of type A, we can use an object of type B.
+        \item B inherits from A if some functions for B are written in terms of functions of A.
+        \item Subtyping: Compatibility of interfaces.
+        \item Inheritance: Reuse of Implementations.
+        \item Using one idea (hierarchy of classes) to implement both concepts blurs the distinction between the two.
+    \end{itemize}
+    \item Java Modifiers
+    \begin{itemize}
+        \item \textit{public} vs \textit{private} to support encapsulation of data.
+        \item \textit{static}, for entries defined inside classes that exist without creating objects of the class.
+        \item \textit{final}, for values that cannot be changed.
+        \item Modifiers static and final are orthogonal to public or private.
+    \end{itemize}
+\end{enumerate}
+\section{Week 4}
+\begin{enumerate}
+    \item Abstract Classes and Interfaces
+    \begin{itemize}
+        \item Sometimes we collect together classes under a common heading. We want to force every subclass to define a function.
+        \item Provide an abstract definition: public abstract double perimeter();\\
+        Forces subclass to provide a concrete implementation.
+        \item If a function is abstract, the entire class must be abstract. But we can still declare variables whose type is an abstract class.
+        \item An interface is an abstract class with no concrete components(Only contains abstract definitions). A class that extends an interface is said to implement it. Can implement multiple interfaces\\
+        public interface Comparable$\{$\\
+        public abstract int cmp(Comparable s);
+        $\}$\\
+        public class Circle extends Shape implements Comparable$\{\}$
+    \end{itemize}
+    \item Interfaces
+    \begin{itemize}
+        \item Cannot express the intended behaviour of any function explicitly.
+        \item We can have static functions inside any interface.
+        \item Provide a default implementation for some functions. Invoke like normal method, using object name. class can override these by providing an implementation.\\
+        public default int cmp(Comparable s)$\{\}$
+        \item If there is a conflict between two interfaces then subclass must provide a fresh implementation.
+        \item If there is a conflict between a  superclass and an interface, we will get the function from the superclass unless it is overridden.
+    \end{itemize}
+    \item Private Classes
+    \begin{itemize}
+        \item Nested within public classes. Also called Inner class.
+        \item Objects of private class can see private components of enclosing class.
+    \end{itemize}
+    \item Callbacks
+    \begin{itemize}
+        \item Myclass m creates a Timer t
+        \item Start t to run in parallel, Myclass m continues to run.
+        \item Timer t notifies Myclass m when the timer limit expires. Assume Myclass m has a function timerdone().
+        \item Timer implements Runnable, which indicates that Timer can run in parallel.
+    \end{itemize}
+    \item Iterators
+    \begin{itemize}
+        \item public interface Iterator$\{$\\
+        public abstract boolean has$\_$next();\\
+        public abstract Object get$\_$next();$\}$
+        \item Need a"pointer" to remember position of the iterator.
+        \item Create an Iterator object and export it.\\
+        public Iterator get$\_$iterator()$\{$\\
+        Iter it = new Iter();\\
+        return it;$\}$
+        \item new Java for over lists implicitly constructs and uses an iterator.\\
+        for(type x : a)$\{$
+        do something with x;$\}$
+    \end{itemize}
+\end{enumerate}
+\section{Week 5}
+\begin{enumerate}
+    \item Polymorphism
+    \begin{itemize}
+        \item Refers to the effect of dynamic dispatch, Every object "knows" what it needs to do.
+        \item Refers to behaviour that depends on only a specific capabilities(Structural Polymorphism).
+        \item Java added Generic Programming, class LinearList$<$T$>$ holds value of type T, public T head() must return a value of same type T. public $<$S extends T, T$>$.
+    \end{itemize}
+    \item Generic Programming
+    \begin{itemize}
+        \item public $<$S extends T, T$>$ int something(S[] src, T[] tgt). S type must extend T type.
+        \item LinkedList$<$Ticket$>$ ticketList = new LinkedList$<$Ticket$>$()
+        \item public static void printList(LinkedList$<?>$ l)$\{\}$, Only use if type is not being used anywhere. $?$ is a wildcard type. Can use $?$ extends T and $?$ super T
+        \item At run time, all type variables are promoted to Object, or the upper bound if one is available.
+    \end{itemize}
+    \item Reflection
+    \begin{itemize}
+        \item Reflection Programming is the ability of a process to examine, introspect, and modify its own structure and behaviour.
+        \item Two component involved, Introspection and Intercession.
+        \item Employee e = new Manager(...); if(e instanceof Manager)$\{\}$
+        \item Can extract the class of an object using getClass(), returns an object of type Class that encodes class information.
+        \item Class c = obj.getClass();\\
+        Object o = c.newInstance();\\
+        Class a = c.forName("Manager");
+        \item Can extract details about constructors, methods and fields of the class. Constructor[] con = c.getConstructors(); Method[] met = c.getMethods(); Field[] field = c.getFields();\\
+        Class params = con[i].getParameterTypes();\\
+        met[3].invoke(c, args); field[3].set(c, value)
+        \item BlueJ, a programming environment to learn Java.
+    \end{itemize}
+\end{enumerate}
+\section{Week 6}
+\begin{enumerate}
+    \item Collection
+    \begin{itemize}
+        \item Abstracts properties of grouped data, Arrays, lists, sets. But not key-value structures.
+        \item add() adds to the collection, iterator() gets an object that implements Iterator interface.
+        \item Iterator has a remove() method, which removes the last accessed element using next(). To remove consecutive elements, must interleave a next().
+        \item addAll(from) adds elements from a compatible collection. removeAll(c) removes elements present in c, remove() different from Iterator. 
+        \item To implement the Collection interface, need to implement all these methods. "Correct" solution is to provide default implementations in the interface. Java has AbstractCollection abstract class implements Collection. This class has default implementations.
+    \end{itemize}
+    \item Maps
+    \begin{itemize}
+        \item Key-value structures come under the Map interface. Two type parameters, K for key type and V for Value types. get(k) fetches value for key k. put(k, v) updates value for key k also returns the old value.
+        \item getOrDefault(Object key, V defaultValue) returns value for key if key exists, else returns default value.
+        \item putIfAbsent(Object key, V value) to initialize a missing key.
+        \item merge(Object key, V newValue, Integer::sum), initialize to newValue if no key else combine current value with new Value using Integer::sum.
+        \item keySet(), values(), entrySet(), methods to extract keys and values.
+    \end{itemize}
+\end{enumerate}
+\section{Week 7}
+\begin{enumerate}
+    \item Exceptions in Java
+    \begin{itemize}
+        \item User input, Device errors, Resource information, Code errors.
+        \item Signalling errors, code that generates an error raises or throws an exception.
+        \item Notify the type of error, Caller catches the exception and takes corrective action or passes the exception back up the calling chain. Declare if a method can throw an exception.
+        \item All exception descend from class \textit{Throwable}, two branches \textit{Error} and \textit{Exception}.
+        \item Error is relatively rare and not the programmer's fault. Exception has two sub-branches \textit{RunTimeException}, checked exception.
+        \item Enclose code that may generate an exception in a \textit{try} block, exception handler in \textit{catch} block. Can catch more than one type of exception. Order catch blocks by argument type, more specific to less specific.
+        \item Create an object of exception type and throw it, \textit{throw new EOFException(errormsg)}. Can also pass diagnostic string errormsg in the object.
+        \item Declare exception thrown in header. \textit{String readFile(String filename) throws FileNotFoundException, EOFException $\{\}$}. Can throw any subclass of declared error.
+        \item If method that can throw an error is called, then the error must be handled. Need not advertise unchecked exceptions Error, RunTimeExceptions.
+        \item Customized Exceptions: Define a new class extending Exception.
+        \item \textit{Throwable} has additional methods to track chains of exceptions getCause(), initCause().
+        \item To clean up resources, add a \textit{finally} block.
+    \end{itemize}
+    \item Packages
+    \begin{itemize}
+        \item Java has an organizational unit called package.
+        \item Can use \textit{import} to use packages directly, \textit{import java.math.BigDecimal}. All classes in \textit{import java.math.*}
+        \item To include a class in a package add a package header, \textit{package in.ac.iitm.onlinedegree}.
+        \item \textit{protected} means visible within subtree, so all subclasses. protected can be made \textit{public}.
+    \end{itemize}
+    \item Assertions
+    \begin{itemize}
+        \item \textit{assert} the property you assume to hold. \textit{assert x $\geq$ 0 : x;}.
+        \item If assertion fails, the code throws \textit{AssertionError}. This should not be caught.
+        \item enabled or disabled at runtime, \textit{java -enableassertions MyCode}. Can selectively turn on assertions for a class \textit{java -ea:MyClass MyCode} or a package.
+    \end{itemize}
+    \item Logging
+    \begin{itemize}
+        \item Typical to generate messages within code for diagnosis.
+        \item Naive approach is to use print statements. Instead, log diagnostic message separately.
+        \item \textit{Logger.getGlobal().info("Edit→Copy menu item selected);}
+        \item Suppress logging execution, \textit{Logger.getGlobal().setLevel(Level.OFF);}
+        \item Can create custom logger,\\
+        \textit{private static final Logger myLogger = Logger.getLogger("in.ac.iitm.onlinedegree");}
+        \item Seven logging levels: SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST. By default, the first three are logged. Can set a different level, \textit{logger.setLevel(Level.FINE);}.
+    \end{itemize}
+\end{enumerate}
+\section{Week 8}
+\begin{enumerate}
+    \item Cloning
+    \begin{itemize}
+        \item Normal assignment creates two references to the same object.
+        \item Object defines a method \textit{clone()} that returns a bitwise copy of the object. Bitwise copy is \textbf{shallow copy}, as it copies the references to nested objects instead of initializing fresh ones.
+        \item \textbf{Deep copy} recursively clones the nested objects. Override the shallow clone() from object. \textit{public Employee clone()$\{\}$} and cast \textit{super.clone()}.
+        \item To allow clone() to be used, a class has to implement a \textit{Cloneable} interface. Object.clone() throws CloneNotSupportedException, catch or report this exception.
+    \end{itemize}
+    \item Type Inference
+    \begin{itemize}
+        \item Use generic \textit{var} to declare variables.
+        \item Only allowed for local variables that are initialized when they are declared.
+    \end{itemize}
+    \item Higher Order Functions
+    \begin{itemize}
+        \item \textit{Comparator$<$T$>$} interface provides signature for comparison function. public int compare(T s1, T s2). Can pass to \textit{Arrays.sort(someArray, Tcompare)}
+        \item Interfaces that define a single function are called functional interfaces.
+        \item Instead of implementing functional interfaces we can use lambda expressions. (Parameters) -$>$ body, return value and type are implicit. \textit{Arrays.sort(strArray, (s1, s2) -$>$ s1.length() - s2.length())}. More complicated functions can be defined as a block.
+        \item If the lambda expression consists of only a single function call, we can pass that function by name. \textit{map$<$String, Integer$>$ scores = scores.merge(bat, newscore, Integer::sum)}, the corresponding lambda expression is \textit{(i,j) -$>$ Integer::sum(i,j)}.
+    \end{itemize}
+    \item Streams
+    \begin{itemize}
+        \item Alternative approach to Iterators. \textit{words.stream().filter(w -$>$ w.length $>$ 10).count()}
+        \item Stream processing is declarative, Processing can be parallelized.\\
+        \textit{words.parallelStream().filter(w -$>$ w.length $>$ 10).count()}
+        \item Apply \textit{stream()} to a collection, use static method \textit{Stream.of()} for Arrays. \textit{Stream.generate(Math::random)} generates a stream from a function, provide a function that produces value on demand with no argument. \textit{Stream.iterate(0,n -$>$ n$<$100,n -$>$ n+1)} generates a stream of dependant values, requires an initial value, a function to determine next value based on previous value, and terminate using a predicate.
+        \item \textit{filter()} to select elements, \textit{map()} applies a function to each element in the stream. \textit{flatMap()} collapses nested list into a single stream in case map generates a list for each element.
+        \item \textit{limit(n)} makes a stream finite. \textit{skip(n)}, discard first n elements. \textit{takeWhile(n -$> $n$>$=0.5)} stops when element matches the criterion. \textit{dropWhile(n -$>$ n$<$=0.05)} starts when element matches the criterion.
+        \item \textit{count()} counts the number of elements. \textit{max()} and \textit{min()}, largest and smallest value seen, requires a comparison function. \textit{findFirst()} gets the first element.
+    \end{itemize}
+\end{enumerate}
+\section{Week 9}
+\begin{enumerate}
+    \item Optional Types
+    \begin{itemize}
+        \item If a stream is empty, max of this stream would be null. To handle this, we use optional type\\
+        \textit{Optional$<$Double$>$ maxNum}
+        \item Use orElse to pass a default value, \textit{Double val = maxNum.orElse(6.5)}
+        \item orElseGet to call a function which generates replacement for missing value.
+        \item orElseThrow to generate an exception whenever missing value is encountered.
+        \item ifPresent, to test if the value is present and process it.
+        \item isPresentOrElse, to specify an alternative action if value is not present.
+        \item Optional.of(v) creates an optional type of variable v, Optional.empty() creates an empty optional, Optional.ofNullable(v) creates empty optional if v is null.
+        \item \textit{map} applies function to value if present
+        \item or returns value as is or specified value if original is null.
+        \item Use \textit{flatmap(T::g)} to invoke function g from class T using Optional$<$T$>$.
+    \end{itemize}
+    \item Collecting Output
+    \begin{itemize}
+        \item Can convert a stream into an array using \textit{toArray()}. Pass array constructor to get more specific type of array, \textit{toArray(String[]::new)}
+        \item Can also use forEach with a suitable function.
+        \item Can also convert to a collection, \textit{mystream.collect(Collection.toList())} or\\
+        \textit{mystream.collect(Collection.toCollection(TreeSet::new))}
+        \item \textit{summarizingInt}, creates \textit{IntSummaryStatistics} that stores max, min, sum, average. Retrieve using \textit{getMax}, \textit{getSum}. Similar for Double and Long
+        \item Convert a stream to a map using \textit{mystream.collect(Collection.toMap(key, value, (existingVal, NewVal) -$>$ existingVal))}. Use \textit{Function.identity()} to store the object as value
+        \item Cam also group stuff, \textit{mystream.collect(Collection.groupingBy(some function))}
+    \end{itemize}
+    \item Input/Output Streams
+    \begin{itemize}
+        \item Input and Output are raw uninterrupted bytes of data. Different from streams generated by Stream object.
+        \item Read raw bytes from a file, pass to a Stream that reads text, Some process, Generate binary data, pass to a Stream that writes raw bytes to a file.
+        \item \textit{var in = new FileInputStream("input.class");}\\
+        \textit{InputStream in = ...}\\
+        \textit{int bytesAvailable = in.available()}\\
+        \textit{while(bytesAvailable $>$ 0)$\{$}\\
+        \textit{var data = new byte[bytesAvailable];}\\
+        \textit{in.read(data);$\}$}
+        \item \textit{var ot = new FileInputStream("output.bin", false);} for overwrite, true for append.\\
+        \textit{OutputStream ot = ...}\\
+        \textit{byte[] values = ...}\\
+        \textit{out.write(values);}\\
+        \textit{in.close();}\\
+        \textit{out.flush();}
+        \item Use Scanner class for taking input\\
+        \textit{var scin = new Scanner(in);}\\
+        Can use methods nextLine, next, nextInt, hasNext.
+        \item Use PrintWriter to write text\\
+        \textit{var pot = new PrintWriter(ot);}\\
+        Use println, and print.
+        \item To read and write binary data, use DataInputStream and DataOutputStream. Contains methods read, readInt, readDouble, readChar etc. similar for write.
+        \item Buffering an input stream, reads blocks of data which is more efficient.\\
+        \textit{var din = new DataInputStream(new BufferedInputStream(new FileInputStream("input.class")));}
+    \end{itemize}
+    \item Serialization
+    \begin{itemize}
+        \item To write objects, Java has ObjectOutputStream\\
+        \textit{var ot = new ObjectOutputStream(new FileOutputStream("employee.dat"));}\\
+        Use writeObject to write an object.
+        \item Similarly, ObjectInputStream, readObject.
+        \item Class has to allow serialization\\
+        \textit{public class Employee implements Serializable}
+        \item Some objects should not be serialized, mark such as transient.\\
+        \textit{private transient label}\\
+        defaultWriteObject writes out the object without all transient fields, then explicitly write all transient fields.\\
+        defaultReadObject reads out the object without all the transient fields, then explicitly read all transient fields.
+    \end{itemize}
+\end{enumerate}
+\section{Week 10}
+\begin{enumerate}
+    \item Concurrency: Threads and Processes
+    \begin{itemize}
+        \item Multiprocessing: Single processor executes several computations "in parallel", Time slicing to share access.
+        \item Process: private set of local variables, time slicing involves saving the state of one process and loading the suspended state of another.
+        \item Thread: Operated on same local variables, Communicate via "shared memory", Context switches are easier.
+        \item Have a class extend Thread, Define a function run(). Invoking object.start() initiates object.run() in a separate thread. Directly calling run() also works. Thread.sleep(t) suspends the thread for t milliseconds.
+        \item Cannot always extend Thread, instead implement Runnable, to use it explicitly create a Thread and start it.
+        \item Race Condition: concurrent update of shared variables, unpredictable outcomes. Avoid by insisting no two functions with shared variables interleave. Mutually exclusive access to critical regions of code.
+    \end{itemize}
+    \item Mutual Exclusion
+    \begin{itemize}
+        \item At most one thread at a time can be in a critical section
+        \item shared variable turn, which decides which thread gets to access the function. But one thread would be locked out permanently if the other shuts down(Starvation).
+        \item Make a variable for both thread that indicated whether that thread is currently accessing the function or not. If both threads try to access simultaneously, both of them would be locked out permanently(Deadlock).
+        \item Peterson's Algorithm, combine the previous two approaches.
+        \item Lamport's Bakery Algorithm: Each new process picks up a token that is larger than all waiting processes. Lowest token number gets served next, still need to break ties.
+    \end{itemize}
+    \item Test and Set
+    \begin{itemize}
+        \item At most one thread at a time can be in a critical section, At most one thread at a time can be in a critical section.
+        \item Semaphores: Programming language support for mutual exclusion.
+        \item Dijkstra's semaphores: Integer variable with atomic test-and-set operation.
+        \item A semaphore supports two atomic operations\\
+        to pass, P(s): \\
+        if(s $>$ 0)$\{$decrement s$\}$else$\{$wait for s to become positive$\}$\\
+        to release, V(s): \\
+        if(there are threads waiting for s to become positive)$\{$wake one of them up$\}$else$\{$increment s$\}$
+        \item Semaphores guarantee Mutual exclusion, Freedom from starvation and deadlock.
+        \item Too low level, No clear relationship between a semaphore and the critical region that it protects, All threads must cooperate to correctly reset semaphore, Cannot enforce that each P(S) has a matching V(S), Can even execute V(S) without having done P(S).
+    \end{itemize}
+    \item Monitors
+    \begin{itemize}
+        \item Attach synchronization control to the data that is being protected
+        \item Monitor is like a class,\\
+        Data Definition: To which access is restricted\\
+        Collections of functions operating on this data all are implicitly mutually exclusive\\
+        \textit{monitor bank$\_$account$\{\}$}
+        \item Implicit queue associated with each monitor, Contains all processes waiting for access
+        \item \textit{wait()}: All other processes are blocked out while this process waits, Need a mechanism for a thread to suspend itself and give up the monitor, A suspended process is waiting for monitor to change its state, Have a separate internal queue, as opposed to external queue where initially blocked threads wait
+        \item \textit{notify()}: notifying process immediately exits the monitor, notifying process swaps roles and goes into the internal queue of the monitor, notifying process keeps control till it completes then one of the notified processes steps in
+        \item Should check the wait() condition again on wake up
+    \end{itemize}
+\end{enumerate}
+\section{Week 11}
+\begin{enumerate}
+    \item Monitors in Java
+    \begin{itemize}
+        \item Monitor incorporated within existing class definitions.
+        \item Functions declared \textit{synchronized} are to be executed atomically.
+        \item wait, notify,  and notifyAll
+        \item Use object locks to synchronize arbitrary blocks of code\\
+        \textit{synchronized(o)$\{\}$}\\
+        Each object has its own internal queue\\
+        o.wait(), o.notifyAll()
+        \item wait can be interrupted by InterruptedException, catch it.
+        \item \textit{private Lock bankLock = new ReentrantLock();}\\
+        \textit{bankLock.lock()} behaves as P(s)\\
+        \textit{bankLock.unlock()} behaves as V(s)
+    \end{itemize}
+    \item Thread in Java
+    \begin{itemize}
+        \item A thread can be in six states, get via \textit{t.getState()}\\
+        New: Created but not started\\
+        Running: Started and ready to be scheduled\\
+        Blocked: Waiting for a lock\\
+        Waiting: Suspended by wait\\
+        Timed Wait: Within sleep\\
+        Dead: Thread terminates
+        \item One thread can interrupt another using \textit{interrupt()}, Raises InterruptedException within wait, sleep, no exception raised if thread is running.
+        \item \textit{interrupted()} checks the interrupt flag and clears it.
+        \item \textit{isInterrupted()} check interrupt flag.
+        \item \textit{yield()} gives up active state to another thread.
+        \item \textit{t.join()} waits for t to terminate
+    \end{itemize}
+\end{enumerate}
+\section{Week 12}
+\begin{enumerate}
+    \item Swing Toolkit
+    \begin{itemize}
+        \item \textit{Swing} Toolkit to define high level components, built on top of lower level event handling system called \textit{AWT}.
+        \item \textit{JButton} is a Swing class for Buttons, Corresponding listener class is \textit{ActionListener}, we implement it, Only one type of event(button push) invokes \textit{actionPerformed()} in listener, Button push is an ActionEvent.
+        \item \textit{import java.awt.*}\\
+        \textit{import java.awt.event.*}\\
+        \textit{import java.swing.*}\\
+        \textit{public class ButtonPanel extends JPanel implements ActionListener $\{$\\
+        private JButton redButton;\\
+        public ButtonPanel() $\{$\\
+        redButton = new JButton("Red");\\
+        redButton.addActionListener(this);\\
+        add(redButton);\\
+        $\}$\\
+        public void actionPerformed(ActionEvent event) $\{$\\
+        Color color = Color.red;\\
+        setBackground(color);\\
+        repaint();\\
+        $\}\}$\\
+        public class ButtonFrame extends JFrame implements WindowListener $\{$\\
+        private Container contentPane;\\
+        public ButtonFrame() $\{$\\
+        setTitle("ButtonTest");\\
+        setSize(300, 200);\\
+        // ButtonFrame listens to itself\\
+        addWindowListener(this);\\
+        // ButtonPanel is added to the contentPane\\
+        contentPane = this.getContentPane();\\
+        contentPane.add(new ButtonPanel());$\}$\\
+        // Six out of the seven methods required for\\
+        // implementing WindowListener are stubs\\
+        public void windowClosing(WindowEvent e) $\{$\\
+        System.exit(0);$\}$\\
+        public void windowActivated(WindowEvent e) $\{\}$\\
+        public void windowClosed(WindowEvent e) $\{\}$\\
+        public void windowDeactivated(WindowEvent e) $\{\}$\\
+        public void windowDeiconified(WindowEvent e) $\{\}$\\
+        public void windowIconified(WindowEvent e) $\{\}$\\
+        public void windowOpened(WindowEvent e) $\{\}$\\
+        $\}$\\
+        public class ButtonTest $\{$\\
+        public static void main(String[] args) $\{$\\
+        EventQueue.invokeLater(() -$>$ $\{$\\
+        JFrame frame = new ButtonFrame();\\
+        frame.setVisible(true);\\
+        $\}$);\\
+        $\}\}$
+        }
+        \item Can get source by \textit{event.getSource()}
+    \end{itemize}
+\end{enumerate}
+\pagebreak
+\phantom{placeholder}
+\end{document}
