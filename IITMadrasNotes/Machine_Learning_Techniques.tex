@@ -1,0 +1,404 @@
+\documentclass[a4paper]{article}\input{head}
+
+\begin{document}
+
+\fancyhead[c]{}
+\hrule \medskip
+\begin{minipage}{0.295\textwidth}
+\raggedright
+Rishabh Indoria
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\centering
+\LARGE
+Machine Learning Techniques
+\end{minipage}\
+\begin{minipage}{0.295\textwidth}
+\raggedleft
+\today \hfill \\
+\end{minipage}
+\medskip \hrule
+\bigskip
+
+\section{Week 1}
+\begin{enumerate}
+    \item{Paradigms of Machine Learning}
+    \begin{itemize}
+        \item Broad Paradigms: Supervised Learning, Unsupervised Learning, Sequential Learning
+        \item Foundations: Linear Algebra for Structure, Probability for Uncertainty, Optimization for Decision
+    \end{itemize}
+    \item{Representation Learning}
+    \begin{itemize}
+        \item Part of Unsupervised Learning
+        \item \textbf{Compression}: Act of finding patterns in data.\\
+        \textbf{Representation}: Some sort of relation within the data point\\
+        \textbf{Coefficients}: Part of the data point, which when written as the representation, we could get the original data point back.
+        \item Choose Representation and Coefficient such that reconstruction error is minimized.
+        \item $n$ represents the number of data points and $d$ represents the number of features.
+        \item Projection of $\textbf{x}$ onto line $\textbf{w}$ is $\frac{\textbf{x.w}}{||\textbf{w}||}\frac{\textbf{w}}{||\textbf{w}||}$
+        \item Optimal value of $\textbf{w}$ is the eigenvector corresponding to the maximum eigenvalue of the covariance matrix. If there are $d$ features, then the Covariance matrix will be a $d\times d$ matrix. The Covariance matrix is $\frac{1}{n}\sum_1^nx_ix_i^T$.
+        \item We want to minimize $\textbf{w}C\textbf{w}.T$.
+        \item All the residuals $\textbf{x} - (\textbf{x.w})\textbf{w}$ are perpendicular to the line $\textbf{w}$
+        \item \textbf{Centred Data}: the Mean value of the dataset is 0. To centre a dataset, you simply subtract the dataset by the mean of the dataset.
+    \end{itemize}
+    \item{Principal Component Analysis}
+    \begin{itemize}
+        \item $\textbf{w}_1$ is the line which minimizes the reconstruction error of a set of points, and $\textbf{w}_2$ is the line which minimizes the reconstruction error of the residues. These lines are orthogonal to each other.
+        \item We find the best fit line $\textbf{w}_1$, then we find residuals, then using the residuals we find the best fit again $\textbf{w}_2$. We keep doing this for $d$ iterations. After which, residues will definitely become 0. The final residue will be $\textbf{x} - (\textbf{x.w}_1)\textbf{w}_1 - (\textbf{x.w}_2)\textbf{w}_2 - ...$
+        \item The vectors $\textbf{w}_1,\textbf{w}_2,...,\textbf{w}_d$ are orthogonal and span or are the basis of $\mathbb{R}^d$.
+        \item The best line one can obtain at $k$th round of the algorithm is the eigenvector corresponding to the $k$th maximum eigenvalue of the Covariance matrix.
+    \end{itemize}
+\end{enumerate}
+\section{Week 2}
+\begin{enumerate}
+    \item Concerns in PCA
+    \begin{itemize}
+        \item Time Complexity: Finding the eigenvalues and eigenvectors, takes about O($d^3$). Issue when $d$ is large.
+        \item It tries to find linear combinations as such, non-linear relationships do not fit well.
+    \end{itemize}
+    \item Time complexity Issue
+    \begin{itemize}
+        \item Large $d$ [$d$ $>>$ $n$]; $X$ is $n\times d$
+        \item Let $w_k$ be the eigenvector corresponding to the $k$th largest eigenvalue of C($\lambda_k$).\\
+        C$w_k$ = $\lambda_kw_k$
+        \item $w_k$ = $X\alpha_k$, $\alpha_kX^TX\alpha_k$ = 1
+        \item Non zero eigenvalues of $XX^T$ and $X^TX$ are exactly the same.
+        \item $\beta_k$ are eigenvectors corresponding to $n\lambda_k$ of $X^TX$, converting them according to constraint $\alpha_k$ = $\frac{\beta_k}{\sqrt{n\lambda_k}}$
+        \item Compute K = $X^TX$, Compute eigen decomposition, convert eigenvectors according to constraint, then finally $w_k$ = $X\alpha_k$
+    \end{itemize}
+    \item Feature Transformation: Increase the dimensions, such that non-linear relationships are captured, then apply PCA.
+    \item Kernel function
+    \begin{itemize}
+        \item To convert from quadratic to linear, we map the features to $\phi(x)$ = [$1$ $f_1^2$ $f_2^2$ $f_1f_2$ $f_1$ $f_2$]
+        \item Any function $k$: $\mathbb{R}^d\times\mathbb{R}^d\rightarrow \mathbb{R}$ which is a valid map is called a kernel function.
+        \item A function k is a valid kernel function if there exists a function $\phi:$ $\mathbb{R}^d\rightarrow \mathbb{R}^D$ such that $k(x_1,x_2)$ = $\phi(x_1^T)\phi(x_2)$ for all $x_1,x_2\in \mathbb{R}^d$
+        \item Kernel is symmetric and positive semi definite. All eigenvalues of $k$ are non-negative.
+        \item Polynomial Kernel: $k(x,x')$ = $(x^Tx' + 1)^2$
+        \item Radial Basis function kernel or Gaussian Kernel: $k(x,x')$ = $e^{\frac{-||x-x'||^2}{2\sigma^2}}$
+    \end{itemize}
+    \item Kernel PCA
+    \begin{itemize}
+        \item Compute Kernel matrix using a kernel function
+        \item Center the Kernel using the formula: $K^C$ = $K-1_nK-K1_n+1_nK1_n$ = $(I-1_n)K(I-1_n)$, where $1_n$ is a matrix with all elements $\frac{1}{n}$
+        \item Compute eigenvalues $\{n\lambda_1, n\lambda_2, ...\}$ and eigenvectors $\{\beta_1, \beta_2, ...\}$ of K and normalize the eigenvectors, $\alpha_u$ = $\frac{\beta_u}{\sqrt{n\lambda_u}}$.
+        \item Compute the transformed data points, $\phi(x_i)^Tw$ = [$\sum \alpha_{1j}K^C_{ij}, \sum \alpha_{1j}K^C_{ij}, ...$]
+        \item We cannot 'recompute' the eigenvectors of the covariance matrix as they would require computing, $\phi$ which would defeat the whole purpose.
+        \item But we can still compute a "compressed" representation.
+    \end{itemize}
+\end{enumerate}
+\section{Week 3}
+\begin{enumerate}
+    \item Intro to Clustering
+    \begin{itemize}
+        \item Goal: Partition the given data into k different clusters.
+        \item Data points: $\{x_1, x_2, ...\}$
+        \item Cluster Indicator: $\{z_1, z_2, ...\}$
+        \item Performance Matrix: $F(z_1, ..., z_n)$ = $\sum_{i=1}^n||x_i - \mu_{z_i}||^2_2$, where $\mu_{z_i}$ is the mean/average of $z_i$ cluster.
+        \item Goal is to minimize Performance matrix
+    \end{itemize}
+    \item K-means Clustering
+    \begin{itemize}
+        \item Also known as Lloyd's Algorithm
+        \item Step 1, Initialization: We define some assignment to clusters $z_1^0, z_2^0, ..., z_n^0$
+        \item Then until convergence we
+        \item Step 2, Compute means: $\mu_k^t$ = $\frac{\sum x_i1(z_i^t=k)}{\sum 1(z_i^t=k)}$
+        \item Step 3, Reassignment: $z_i^{t+1}$ = arg min$_k$ $||x_i - \mu_k^t||^2_2$
+        \item FACT: LLOYD'S ALGORITHM CONVERGES, but converged solution may not be "optimal". But produces "reasonable" cluster in practice.
+    \end{itemize}
+    \item Convergence of K-means
+    \begin{itemize}
+        \item FACT 1: Let $x_1,x_2,...,x_l$, $v^*$ = arg min$_v$ $\sum ||x_i - v||^2$. $v^*$ = $\frac{\sum x_i}{l}$
+        \item In every iteration, the objective function strictly reduces, which implies that no partition repeats.
+        \item There are only "FINITE" number of partitions as such algorithm must converge.
+    \end{itemize}
+    \item Nature of Clusters
+    \begin{itemize}
+        \item For a cluster with mean $\mu_1$, all $x$ assigned to it will satisfy $x^T(\mu_n - \mu_1) \leq \frac{||\mu_n||^2 - ||\mu_1||^2}{2}$, for all $n\neq 1$
+        \item VORONOI region: intersection of half spaces. Cluster regions are voronoi regions.
+        \item K-means can not efficiently cluster data points that are not linearly separable. Kernel K-means is used to cluster data points that are not linearly separable. Spectral Clustering can also be used.
+    \end{itemize}
+    \item Initialization of centroids
+    \begin{itemize}
+        \item Pick K-means uniformly at random from the dataset.
+        \item Means should be far apart.
+        \item K-means++: Choose first mean $\mu^0_1$ uniformly at random from the dataset. For $l=2,3,...,k$ choose $\mu_l^0$ probabilistically proportional to score.
+        \item Score $S(x)$ = min$_j$ $||x-\mu_j^0||^2$
+    \end{itemize}
+    \item Choice of K
+    \begin{itemize}
+        \item We want K to be not as small and not as large. Penalize large values of K.
+        \item Value of K is where Objective function + Penalty function is the smallest.
+        \item Akaike Information Criterion: $2K-2\log(L(\theta^*))$
+        \item Bayesian Information Criterion: $K\log(n)-2\log(L(\theta^*))$
+    \end{itemize}
+\end{enumerate}
+\section{Week 4}
+\begin{enumerate}
+    \item Introduction to Estimation
+    \begin{itemize}
+        \item Estimation: There is some probabilistic mechanism that generates the data. About which we don't know "something".
+        \item Goal: Observe data and "Assume" a probabilistic model that generates the data.
+        \item Assumption: Observations are \textbf{Independent} and \textbf{Identically Distributed}
+    \end{itemize}
+    \item Maximum Likelihood Estimation
+    \begin{itemize}
+        \item Fisher's Principle of Maximum Likelihood: Write the likelihood function \\
+        $L(p, \{x_1,x_2,...x_n\})$ = $P(x_1,x_2,...,x_n,p)$\\
+        = $P(x_1,p).P(x_2,p)...P(x_n,p)$ = $\Pi_{i=1}^np^{x_i}(1-p)^{1-x_i}$ [Independence]
+        \item Estimator: $\hat{p}_{ML}$ = arg max$_p\Pi_{i=1}^np^{x_i}(1-p)^{1-x_i}$\\
+        We take logarithm to simplify\\
+        = arg max$_p\sum_{i=1}^nx_i\log(p)+(1-x_i)\log(1-p)$ [log is monotonically increasing]\\
+        Taking Derivative and setting to 0 we get,\\
+        $\hat{p}_{ML}$ = $\frac{\sum_{i=1}^nx_i}{n}$
+        \item Fisher's Proposal: $L(\mu, \sigma^2, \{x_1,x_2,...x_n\})$ = $f_{x_1,x_2,...x_n}(x_1,x_2,...x_n,\mu,\sigma^2)$ = $\Pi f_{x_i}(x_i,\mu,\sigma^2)$\\
+        This is done because for continuous functions, Probability only exists for intervals and probability at any particular point would be 0.
+    \end{itemize}
+    \item Bayesian Estimation
+    \begin{itemize}
+        \item Goal: Incorporate "Hunch" about parameters into the estimation procedure.
+        \item Approach: Think of the parameter to estimate as a "random" variable.
+        \item Hunch: codified using a probabilistic distribution over $\theta$
+        \item After looking at data, move to\\
+        Updated Hunch: Codified using another probabilistic distribution.
+        \item $P(\theta | \{x_1,x_2,...x_n\})$ = $\frac{P(\{x_1,x_2,...x_n\} | \theta)P(\theta)}{P(\{x_1,x_2,...x_n\})}$
+        \item BETA PRIOR: $f(p, \alpha, \beta)$ = $\frac{p^{\alpha-1}(1-p)^{\beta-1}}{z}$
+        \item BETA POSTERIOR($\alpha+n_h,\beta+n_t$)
+        \item One possible guess = $\frac{\alpha+n_h}{\alpha+\beta+n}$
+    \end{itemize}
+    \item Gaussian Mixture Models
+    \begin{itemize}
+        \item STEP 1: Pick which mixture a data point comes from.
+        \item STEP 2: Generate data point from that mixture.
+        \item Generate a mixture component among $\{1,...,k\}$, $z_i\epsilon\{1,...,k\}$\\
+        $P(z_i=l)$ = $\pi_l$
+        \item Generate $x_i$ = $N(\mu_{z_i}, \sigma^2_{z_i})$
+        \item Observed: $\{x_1,x_2,...,x_n\}$\\
+        Unobserved: $\{z_1,z_2,...,z_n\}$\\
+        Parameters: $\pi$ = [$\pi_1,\pi_2,...,\pi_k$], and for each $k$ ($\mu_k, \sigma_k^2$)
+    \end{itemize}
+    \item Likelihood of GMM
+    \begin{itemize}
+        \item $L(Parameters,\{x_1,x_2,...,x_n\})$ = $\Pi_{i=1}^n f(x_i; Parameters)$\\
+        = $\Pi_{i=1}^n [\sum_{k=1}^k \pi_k f(x_i;\mu_k, \sigma^2_k)]$\\
+        $L(Parameters)$ = $\Pi_{i=1}^n [\sum_{k=1}^k\pi_k\frac{e^{\frac{-(x_i - \mu_k)^2}{2\sigma_k^2}}}{\sqrt{2\pi}\sigma_k}]$
+        \item $\log(L(Parameters))$ = $\sum_{i=1}^n\log(\sum_{k=1}^k\pi_k\frac{e^{\frac{-(x_i - \mu_k)^2}{2\sigma_k^2}}}{\sqrt{2\pi}\sigma_k})$
+    \end{itemize}
+    \item Convex Functions and Jensen's inequality
+    \begin{itemize}
+        \item Convex Functions: $f(\frac{a+b}{2}) \leq \frac{f(a) + f(b)}{2}$ $\forall a,b$\\
+        \item Jensen's inequality: $f(\lambda_1a_1 + ... + \lambda_ka_k)\leq \lambda_1f(a_1) + ... + \lambda_kf(a_k)$\\
+        $f(\sum \lambda_ka_k)\leq\sum\lambda_kf(a_k)$, $\sum \lambda_k = 1$
+        \item Concave Functions: $f(\frac{a+b}{2}) \geq \frac{f(a) + f(b)}{2}$ $\forall a,b$
+        \item Jensen's inequality: $f(\lambda_1a_1 + ... + \lambda_ka_k)\geq \lambda_1f(a_1) + ... + \lambda_kf(a_k)$\\
+        $f(\sum \lambda_ka_k)\geq\sum\lambda_kf(a_k)$, $\sum \lambda_k = 1$
+        \item Linear Functions are both Concave and Convex.
+        \item Log is a concave function
+    \end{itemize}
+    \item Estimating the parameters
+    \begin{itemize}
+        \item $\log(L(Parameters))$ = $\sum_{i=1}^n\log(\sum_{k=1}^k \lambda_k^i (\pi_k\frac{e^{\frac{-(x_i - \mu_k)^2}{2\sigma_k^2}}}{\lambda_k^i\sqrt{2\pi}\sigma_k}))$\\
+        Apply Jensen's inequality, Fix $\lambda$ and then take derivative and set to 0
+        \item $\hat{\mu_k}$ = $\frac{\sum_{i=1}^n\lambda_k^ix_i}{\sum_{i=1}^n\lambda_k^i}$, $\hat{\sigma_k^2}$ = $\frac{\sum_{i=1}^n\lambda_k^i(x_i - \hat{\mu_k})^2}{\sum_{i=1}^n\lambda_k^i}$, $\hat{\pi_k}$ = $\frac{\sum_{i=1}^n\lambda_k^i}{n}$
+        \item Fixing all parameters and maximizing with respect to $\lambda$\\
+        $\hat{\lambda_k^i}$ = $\frac{\frac{1}{\sqrt{2\pi}\sigma_k}e^{\frac{-(x_i - \mu_k)^2}{2\sigma_k^2}} . \pi_k}{\sum_{l=1}^k\frac{1}{\sqrt{2\pi}\sigma_l}e^{\frac{-(x_i - \mu_l)^2}{2\sigma_l^2}} . \pi_l}$ = $\frac{P(x_i|z_i=k)P(k)}{P(x_i)}$\\
+        $\forall i$, $\sum_{k=1}^K\lambda^i_k$ = $1$
+    \end{itemize}
+    \item Expectation Maximization Algorithm
+    \begin{itemize}
+        \item Initialize Parameters
+        \item Then until convergence\\
+        Expectation Step: Calculate $\lambda^{t+1}$ using $Parameters^t$\\
+        Maximization Step: Calculate $Parameters^{t+1}$ using $\lambda^{t+1}$
+    \end{itemize}
+\end{enumerate}
+\section{Week 5}
+\begin{enumerate}
+    \item Supervised Learning
+    \begin{itemize}
+        \item Input is features/attributes $\{x_1,...x_n\}$ and labels $\{y_1,...,y_n\}$.
+        \item If labels only take two values, then the problem is called binary classification problem. If labels take $n$ values, then the problem is called multi class classification. If labels take any value in real number, then the problem is called a regression problem.
+    \end{itemize}
+    \item Linear Regression
+    \begin{itemize}
+        \item Goal is to learn a function $f$ which maps a given feature to its correct label.
+        \item Error($f$) = $\sum(f(x_i) - y_i)^2$
+        \item For linear regression we take $f(x)$ = $w^Tx$, and minimize Error($f$).
+        \item $\begin{bmatrix}---x_1---\\---x_2---\\---x_n---\end{bmatrix}\begin{bmatrix}w_1\\w_2\\w_n\end{bmatrix}$ = $\begin{bmatrix}y_1\\y_2\\y_n\end{bmatrix}$, we want to minimize $(x^Tw - y)^2$ or $(x^Tw-y)^T(x^Tw-y)$.
+        \item Simply take gradient and set to $0$, we get $(xx^T)w^*$ = $xy$.
+        \item Since $w^*$ is a solution of an unconstrained optimization problem, we can apply gradient descent \\
+        $w^{t+1}$ = $w^t - \eta^t \triangledown f(w^t)$, where $\eta$ is the step size.\\
+        $w^{t+1}$ = $w^t - \eta^t 2(xx^Tw^t - xy)$
+        \item In case number of data points is large, we use\\
+        \textbf{Stochastic Gradient Descent}: For $t$ iterations, sample a bunch($k$) of data points uniformly at random from the set of all points. Pretend this sample is the entire dataset and take a gradient step w.r.t it. After all rounds, we use $w^T_{SGD}$ = $\frac{1}{T}\sum w^t$.
+        \item \textbf{Kernel Regression} is similar to kernel PCA, we take $w^*$ = $x\alpha^*$ and $K$ = $x^Tx$. $\alpha^*$ = $K^{-1}y$.\\
+        To make a prediction $w^*\phi(x_{test})$ = $\sum_{i=1}^n\alpha_i^*K(x_i,x_{test})$
+        \item \textbf{Probabilistic Regression}, assume labels are generated as $w^tx + \epsilon$, where $\epsilon$ is noise generated from a Gaussian distribution. Using Maximum Likelihood function we simply arrive at\\
+        $\hat{w_{ML}}$ = min $\sum(w^Tx - y)^2$.
+    \end{itemize}
+\end{enumerate}
+\section{Week 6}
+\begin{enumerate}
+    \item Goodness of Maximum Likelihood Estimator
+    \begin{itemize}
+        \item To understand how good $\hat{w}_{ML}$ is in estimating $w$, $E[||\hat{w}_{ML} - w||^2]$ = $\sigma^2 trace((xx^T)^{-1})$
+        \item $trace((xx^T)^{-1})$ = $\sum\frac{1}{\lambda_i}$, where $\lambda_i$ are the eigenvalues of $xx^T$
+        \item $\hat{w}_{new}$ = $(xx^T+\lambda I)^{-1}xy$, $trace((xx^T+\lambda I)^{-1})$ = $\sum\frac{1}{\lambda_i + \lambda}$
+        \item \textbf{Existence Theorem}, There exists some $\lambda$ such that $\hat{w}_{new}$ has lesser mean squared error than $\hat{w}_{ML}$. We find this $\lambda$ by cross validation.
+        \item Split the training set into train set and validation set. Train on the train set and check for error on validation set. Pick $\lambda$ that gives the least error.
+        \item \textbf{K-fold Cross Validation}, Split dataset into K folds, train on K-1 folds and validate on the last fold. Pick $\lambda$ that gives the least average error.
+        \item \textbf{Leave One Out Cross Validation}, train on $n-1$ data points and validate on the last point.
+    \end{itemize}
+    \item Bayesian Modelling for Linear Regression
+    \begin{itemize}
+        \item Need a Prior on $w$, a choice of prior $N(0, \gamma^2I)$
+        \item Posterior is proportional to $P(dataset|w)P(w)$ = $(\prod e^{\frac{-(y_i - w^Tx_i)^2}{2}})e^{\frac{-||w||^2}{2\gamma^2}}$
+        \item $\hat{w}_{MAP}$ = min $\frac{1}{2}\sum(y_i-w^Tx_i)^2 + \frac{1}{2\gamma^2}||w||^2$, taking gradient and setting to 0 we get\\
+        $\hat{w}_{MAP}$ = $(xx^T + \frac{1}{\gamma^2}I)^{-1}xy$
+    \end{itemize}
+    \item Ridge Regression
+    \begin{itemize}
+        \item $\hat{w}_R$ = arg min $\sum(w^Tx_i - y_i)^2 + \lambda||w||^2$, where the added term is called regularization term.
+        \item Ridge pushes weight values towards 0 but does not necessarily make it 0.
+    \end{itemize}
+    \item Lasso Regression
+    \begin{itemize}
+        \item An alternate way is to regularize would be using L1 norm(Summation of absolute values instead of squared values).
+        \item Much more likely to make some weight values 0. But it does not have a closed form solution.
+        \item Sub gradients methods are usually used to solve LASSO.
+    \end{itemize}
+\end{enumerate}
+\section{Week 7}
+\begin{enumerate}
+    \item Binary Classification
+    \begin{itemize}
+        \item Labels belong to the set $\{0,1\}$ or the set $\{-1,1\}$
+        \item Loss($h$) = $\frac{1}{n}\sum 1(h(x_i) \neq y_i)$
+        \item $h(x)$ = $sign(w^Tx)$
+    \end{itemize}
+    \item K Nearest Neighbours
+    \begin{itemize}
+        \item Given a test point $x_{test}$, find the closest point $x'$ to $x_{test}$ in the training set. Predict $y_{test}$ = $y'$.
+        \item Can get affected by outliers, Ask more neighbours and predict the majority.
+        \item Problems: Choosing a distance function, Prediction is computationally expensive, No model is learnt.
+    \end{itemize}
+    \item Decision Trees
+    \begin{itemize}
+        \item A question is a (feature, value) pair. Is feature $\leq$ value ?
+        \item Need a measure of "Impurity" for a set of labels to determine how good a question is.
+        \item Entropy function = $-(p\log(p) + (1-p)\log(1-p))$, where p is the fraction of 1's, and $\log(0)$ is considered 0.
+        \item Information Gain(feature, value) = Entropy(D) - [$\gamma$Entropy(D$_{yes}$) + (1-$\gamma$)Entropy(D$_{no}$)],\\
+        where $\gamma$ = $\frac{|\text{D}_yes|}{|\text{D}|}$
+        \item Discretize each feature in [min, max] range. Pick the question that has the largest Information Gain. Repeat the procedure for D$_{yes}$, D${no}$.
+        \item Can stop growing a tree if a node becomes "Sufficiently" Pure. Depth of the tree is a hyperparameter. There are alternate measures for "goodness" of a question.
+        \item Gini Index function is another popular function to measure impurity.
+    \end{itemize}
+    \item Types of Modelling
+    \begin{itemize}
+        \item Generative Model: $P(x, y)$
+        \item Discriminative Model: $P(y|x)$
+    \end{itemize}
+\end{enumerate}
+\section{Week 8}
+\begin{enumerate}
+    \item Generative Model based Algorithm
+    \begin{itemize}
+        \item Data: $\{(x_1,y_1), ..., (x_n,y_n)\}$, where $x\epsilon\{0,1\}^d$ and $y\epsilon\{0,1\}$.
+        \item Step 1: Decide the labels by tossing a coin with $P(y_i = 1)$ = $p$
+        \item Step 2: Determine the features using the labels obtained in Step 1 through the conditional probability $P(x_i|y_i)$.
+        \item The parameters in generative modelling are defined as $\hat{p}$ to decide the label, $2^d-1$ parameters for $P(x|y=1)$ and $2^d-1$ parameters for $P(x|y=0)$. Where $d$ is the number of features.
+        \item Too many parameters, could lead to overfitting and the model may not be practically viable.
+    \end{itemize}
+    \item Alternate Generative Model
+    \begin{itemize}
+        \item Class conditional independence: This assumption states that the features of an object are conditionally independent given its class label.
+        \item Step 1 remains the same.
+        \item Step 2: Determine the features for $x$ given $y$ using the following conditional probability,\\
+        $P(x=[f_1,f_2,...f_n]|y)$ = $\prod(p_i^{y_i})^{f_i}(1-p_i^{y_i})^{f_i}$.
+        \item The parameters in generative modelling are defined as $\hat{p}$ to decide the label, $d$ parameters for $P(x|y=1)$ and $d$ parameters for $P(x|y=0)$. Where $d$ is the number of features.
+        \item Parameters are estimated using Maximum Likelihood Estimator.
+    \end{itemize}
+    \item Naive Bayes Algorithm
+    \begin{itemize}
+        \item The model is given by: $P(x=[f_1,f_2,...f_n]|y)$ = $\prod(p_i^{y_i})^{f_i}(1-p_i^{y_i})^{f_i}$.
+        \item The parameters estimated are $p$, $\{p_1^0,p_2^0,...,p_d^0\}$, and $\{p_1^1,p_2^1,...,p_d^1\}$.
+        \item The estimates are $\hat{p}$ = $\frac{1}{n}\sum y$, and $\hat{p}^y_j$ = $\frac{\sum_{i=1}^n 1(f_j^i=1,y_i=y)}{\sum_{i=1}^n 1(y_i=y)}$
+        \item Given $x^{test}\epsilon\{0,1\}^d$, the prediction of $\hat{y}^{test}$ is done using the inequality $P(\hat{y}^{test}=1|x^{test})\geq P(\hat{y}^{test}=0|x^{test})$.
+        \item Can express $P(\hat{y}^{test}=t|x^{test})$ = $\frac{P(x^{test}|\hat{y}^{test}=t)P(\hat{y}^{test}=t)}{P({x}^{test})}$, since we are only comparing, there is no need to calculate $x^{test}$.
+        \item One prominent issue with Naive Bayes is that if a feature is not observed in the training set, but present in the testing set, the prediction probabilities for both classes become zero.\\
+        Laplace smoothing: A popular remedy for this issue is to introduce two “pseudo” data points with labels 1 and 0, respectively, into the dataset, where all their features are set to 1.
+        \item The decision function of Naive Bayes is linear, and the boundary is given by\\
+        $\{x = P(y=0|x) = P(y=1| x)\}$
+    \end{itemize}
+    \item Gaussian Naive Bayes
+    \begin{itemize}
+        \item Assumes that features in the dataset follow a normal distribution and computes the likelihood of a class for a given set of feature values by estimating the mean and variance of the feature values within each class.
+        \item $P(x|y=0)$ = $N(\mu_0,\Sigma)$ and $P(x|y=1)$ = $N(\mu_1,\Sigma)$
+        \item $\hat{\mu}_t$ = $\frac{\sum1(y_i=t)x_i}{\sum1(y_i=t)}$, $\hat{\Sigma}$ = $\frac{1}{n}\sum(x_i - \hat{\mu}_{y_i})(x_i - \hat{\mu}_{y_i})^T$.
+        \item If the covariance matrices are equal then the decision boundary is linear, if they are unequal then the decision boundary is quadratic.
+        \item For unequal covariance matrix $\hat{\Sigma}_t$ = $\frac{\sum(1(y_i=t)x_i - \hat{\mu}_{t})(1(y_i=t)x_i - \hat{\mu}_{t})^T}{\sum1(y_i=t)}$.
+    \end{itemize}
+\end{enumerate}
+\section{Week 9}
+\begin{enumerate}
+    \item Perceptron Learning Algorithm
+    \begin{itemize}
+        \item Widely employed for binary classification, focuses on modelling the boundary between each class.
+        \item Objective function, $\sum 1(h(x_i)\neq y_i)$
+        \item Until convergence, select a pair $(x_i,y_i)$, if, $sign(w^Tx_i)\neq y_i$ then update the weight vector\\
+        $w^{t+1}$ = $w^t + x_iy_i$.
+        \item $l^2\gamma^2\leq ||w_{l+1}||^2\leq lR^2$
+        \item Uber bound on number of mistakes\\
+        $\#mistakes \leq \frac{R^2}{\gamma^2}$
+    \end{itemize}
+    \item Logistic Regression
+    \begin{itemize}
+        \item Objective is to estimate the probability that the dependant variable belongs to one of two possible values.
+        \item Let $z=w^Tx_i$, we define the $P(y=1|x)$ = $g(z)$ = $\frac{1}{1 + e^{-z}}$, where the function $g(z)$ is called the sigmoid function.
+        \item Objective is to maximize the log likelihood or minimize the negative log likelihood.\\
+        $y_i\log(g(z)) + (1-y_i)\log(1-g(z))$
+        \item For gradient descent, we get the gradient as $x_i(y_i - g(z))$
+    \end{itemize}
+\end{enumerate}
+\section{Week 10}
+\begin{enumerate}
+    \item Support Vector Machines
+    \begin{itemize}
+        \item category of supervised learning algorithms designed for classification and regression analysis. SVMs aim to identify the optimal hyperplane that maximizes the margin between data points from different classes.
+        \item Hard Margin SVMs: applicable only when the dataset is linearly separable\\
+        Direct or Kernelized Calculation of \textit{Q}: Compute the matrix $Q$ = $X^TX$ directly or using a kernel, based on the dataset.\\
+        Gradient Descent: Employ the gradient of the dual formula, $\alpha^T1 - \frac{1}{2}\alpha^TY^TQY\alpha$, in a gradient descent algorithm to iteratively find a satisfactory set of Lagrange multipliers $\alpha$.\\
+        label($x_{test}$) = sign($w^Tx_{test}$) = sign($\sum\alpha_iy_i(x_i^Tx_{test})$)\\
+        label($x_{test}$) = sign($w^T\phi(x_{test})$) = sign($\sum\alpha_iy_ik(x_i^Tx_{test})$)
+        \item Soft Margin SVMs: extends the standard SVM algorithm to accommodate some misclassifications in the training data. This extension is particularly useful when dealing with non-linearly separable data. It introduces a regularization parameter ($C$) to control the balance between maximizing the margin and allowing for misclassifications.\\
+        min $\frac{1}{2}||w||^2_2 + C\sum\epsilon_i$ such that $(w^Tx_i)y_i + \epsilon_i \geq 1$, $\epsilon_i \geq 0$
+    \end{itemize}
+\end{enumerate}
+\section{Week 11}
+\begin{enumerate}
+    \item Bagging
+    \begin{itemize}
+        \item Simply Distribute the dataset into m smaller datasets, them make m different models. For prediction, predict using each of the models, average out the prediction, then use the same function on the averaged prediction.
+        \item Can also use feature bagging.
+    \end{itemize}
+    \item Boosting
+    \begin{itemize}
+        \item Input: S = $\{(x_1,y_1),...,(x_n,y_n)\}$
+        \item Initialize $D_0(i) = \frac{1}{n}$
+        \item For t = 1 to T\\
+        $h_t$ = Input S to a weak Learner\\
+        $\Tilde{D}_{t+1}(i)$ = $D_t(i)e^{\alpha_t}$ if $h_t(x_i)\neq y_i$ else $D_t(i)e^{-\alpha_t}$\\
+        $D_{t+1}(i) = \frac{\Tilde{D}_{t+1}(i)}{\sum\Tilde{D}_{t+1}(i)}$
+        \item $\alpha_t$ = $\log(\sqrt{\frac{1 - error(h_t)}{error(h_t)}})$
+        \item $h^*(x)$ = sign($\sum\alpha_th_t(x)$)
+    \end{itemize}
+\end{enumerate}
+\section{Week 12}
+\begin{enumerate}
+    \item Activation Functions
+    \begin{itemize}
+        \item Sigmoid function: $\frac{1}{1+e^{-z}}$
+        \item Rectified Linear Unit: max(0,z)
+    \end{itemize}
+\end{enumerate}
+
+\end{document}
